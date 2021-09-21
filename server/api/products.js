@@ -13,6 +13,7 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
+    // for security reasons
     const { name, price, description } = req.body;
     const product = await Product.create({ name, price, description });
     res.json(product);
