@@ -5,7 +5,17 @@ model.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const products = await Product.findAll();
-    res.send(products);
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const { name, price, description } = req.body;
+    const product = await Product.create({ name, price, description });
+    res.json(product);
   } catch (error) {
     next(error);
   }
