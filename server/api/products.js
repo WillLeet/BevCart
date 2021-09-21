@@ -4,7 +4,7 @@ model.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const products = Product.findAll();
+    const products = await Product.findAll();
     res.send(products);
   } catch (error) {
     next(error);
