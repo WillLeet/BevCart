@@ -30,7 +30,7 @@ router.get("/:userId", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const { name, password, email } = req.body;
-    const user = await User.create({ name, password, email });
+    const user = await User.create({ name, password, email, isAdmin: false});
     res.json(user);
   } catch (error) {
     next(error);
