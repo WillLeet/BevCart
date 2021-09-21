@@ -2,7 +2,6 @@ const router = require("express").Router();
 const {
   models: { User },
 } = require("../db");
-module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
@@ -27,3 +26,37 @@ router.get("/:userId", async (req, res, next) => {
     next(error);
   }
 });
+
+router.post("/", async (req, res, next) => {
+  try {
+    const { name, password, email } = req.body;
+    const user = await User.create({ name, password, email });
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/:userId", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const { name, password, email } = req.body;
+    const user = await User.findByPk(userId);
+    res.json(await user.update({ name, password, email }));
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:userId", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    await user.destroy();
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = router;
