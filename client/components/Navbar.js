@@ -3,27 +3,42 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
+let isAdmin = false;
+
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>FS-App-Template</h1>
-    <nav>
+  <div id="navbar-div">
+    <div className="nav-left">
+      <h3 id="navbar-welcome">Welcome {isLoggedIn?('User'):(isAdmin?('Admin'):(''))}</h3>
+    </div>
+    <Link id="nav-company-name" to="/home">BevCart</Link>
+    <nav className="nav-right">
       {isLoggedIn ? (
-        <div>
+        <div className = "nav-options">
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
       ) : (
-        <div>
+        <div className = "nav-options">
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
+          {isAdmin ? (
+              <div>
+              <Link to="/products"> View products</Link>
+              <Link to="/users"> View users</Link>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+              </div>
+          ):(
+            <div className = "nav-right">
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          )}
+          </div>
       )}
+    <Link to="/cart">🛒</Link>
     </nav>
-    <hr />
   </div>
 )
 
