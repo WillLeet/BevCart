@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const Product = require("../db");
-model.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
@@ -13,7 +12,6 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    // for security reasons
     const { name, price, description } = req.body;
     const product = await Product.create({ name, price, description });
     res.json(product);
@@ -21,3 +19,27 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
+
+router.put("/:productId", async (req, res, next) => {
+  try {
+    const productId = req.params.productId;
+    const { name, price, description } = req.body;
+    const product = await Product.findByPk(productId);
+    res.json(await product.update({ name, price, description }));
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:productId", async (req, res, next) => {
+  try {
+    const productId = req.params.productId;
+    const product = await Product.findByPk(productId);
+    await product.destroy();
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = router;
