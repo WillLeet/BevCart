@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const {db, models: {User, Product, Review} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -9,15 +9,34 @@ const {db, models: {User} } = require('../server/db')
 async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
-
+  console.log(Product);
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
+    User.create({ username: 'cody', password: '123' , email: "cody.123@gmail.com"}),
+    User.create({ username: 'murphy', password: '123', email: "IAMTHELAW@icloud.com"}),
+    User.create({ username: 'emma', password: '123', email: "outoffakeemails@oops.edu"}),
   ])
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+  console.log(`seeded ${users.length} users`);
+
+  const products = await Promise.all([
+    Product.create({ name: 'Dr Pepper', price: 1.05 , description: "The elixir of life"}),
+    Product.create({ name: 'Mango Smoothie', price: 5.99 , description: "A sweet treat for you and your pet amphibian. Best served cold!"}),
+    Product.create({ name: 'Actual Dinosaur Tears', price: 420.69, description: "Don't ask where I got this from I won't tell you."}),
+    Product.create({ name: 'Blue stuff under my fridge', price: 0.01, description: "Wait you aren't seriously considering buying this are you"})
+  ])
+
+  console.log(`seeded ${products.length} products`);
+
+  const reviews = await Promise.all([
+    Review.create({ userId: 1, productId: 1, rating: 5, content: "OH MY GOD MY MOUTH CRIES TEARS OF JOY"}),
+    Review.create({ userId: 2, productId: 2, rating: 2, content: "I now know what regret tastes like. bad."}),
+    Review.create({ userId: 2, productId: 3, rating: 1, content: "hbelp"})
+  ])
+
+  console.log(`seeded${reviews.length} reviews`)
+
+  console.log(`seeded successfully!`)
   return {
     users: {
       cody: users[0],

@@ -19,7 +19,7 @@ describe("User routes", () => {
       const res = await request(app).get("/api/users").expect(200);
 
       expect(res.body).to.be.an("array");
-      expect(res.body.length).to.equal(2);
+      expect(res.body.length).to.equal(3);
     });
   });
 
