@@ -38,6 +38,8 @@ describe("User routes", () => {
           expect(res.body.password).not.to.equal("123");
           expect(res.body.email).to.equal("lucy@the.best");
         });
+      const resp = await request.get("/api/users").expect(200);
+      expect(resp.body.length).to.equal(4);
     });
   });
 
@@ -72,17 +74,17 @@ describe("User routes", () => {
         {
           username: "cody",
           email: "cody.123@gmail.com",
-          isAdmin: null,
+          isAdmin: false,
         },
         {
           username: "emma",
           email: "outoffakeemails@oops.edu",
-          isAdmin: null,
+          isAdmin: false,
         },
         {
           username: "murphy",
           email: "IAMTHELAW@icloud.com",
-          isAdmin: null,
+          isAdmin: false,
         },
       ]);
 

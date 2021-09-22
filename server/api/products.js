@@ -48,7 +48,7 @@ router.delete("/:productId", async (req, res, next) => {
     const productId = req.params.productId;
     const product = await Product.findByPk(productId);
     await product.destroy();
-    res.json(product);
+    res.status(500).json(product);
   } catch (error) {
     next(error);
   }
