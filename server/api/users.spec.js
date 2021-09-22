@@ -18,8 +18,8 @@ describe('User routes', () => {
         .get('/api/users')
         .expect(200)
 
-      expect(res.body).to.be.an('array');
-      expect(res.body.length).to.equal(2);
+        expect(res.body).to.be.an("array");
+        expect(res.body.length).to.equal(3);
     })
-  }) // end describe('/api/users')
-}) // end describe('User routes')
+  }) 
+}) 
