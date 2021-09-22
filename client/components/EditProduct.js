@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteProduct, updateProduct } from '../store/products';
+import { deleteProduct, updateProduct } from '../store/singleProduct';
 
 class EditProduct extends Component {
   constructor(props) {
