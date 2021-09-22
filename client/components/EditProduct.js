@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteProduct, updateProduct } from '../store/singleProduct';
+import { updateProduct } from '../store/singleProduct';
 
 class EditProduct extends Component {
   constructor(props) {
@@ -61,7 +61,6 @@ const mapStateToProps = ({ product }) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     updateProduct: (product) => dispatch(updateProduct(product)),
-    deleteProduct: (id) => dispatch(deleteProduct(id)),
   };
 };
 
