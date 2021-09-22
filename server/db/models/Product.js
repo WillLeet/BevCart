@@ -1,9 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-
-const SALT_ROUNDS = 5;
-
 const Product = db.define('product', {
     name: {
       type: Sequelize.STRING,
@@ -22,7 +19,11 @@ const Product = db.define('product', {
     },
     description: {
       type: Sequelize.STRING
-    }
+    },
+    imageUrl: {
+      type: Sequelize.STRING,
+      defaultValue: "https://i.pinimg.com/originals/cf/c2/ab/cfc2ab6fda2324467f69f1d059db3d4e.png"
+      },
   })
 
 module.exports = Product
