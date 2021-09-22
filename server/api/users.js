@@ -20,7 +20,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId, {
+      attributes: ["username", "email", "isAdmin"],
+    });
     res.json(user);
   } catch (error) {
     next(error);
@@ -53,7 +55,7 @@ router.delete("/:userId", async (req, res, next) => {
     const userId = req.params.userId;
     const user = await User.findByPk(userId);
     await user.destroy();
-    res.json(user);
+    res.status(500).json(user);
   } catch (error) {
     next(error);
   }
