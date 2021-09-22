@@ -117,7 +117,7 @@ describe("Product routes", () => {
     });
     it("DELETE /api/products/:productId", async () => {
       const res = await request.delete("/api/products/1").timeout(200);
-      expect(res.status).to.equal(500);
+      expect(res.status).to.equal(203);
     });
   });
 });
