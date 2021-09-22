@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Product, Review },
+  models: { User, Product, Review, ProductInCart },
 } = require("../server/db");
 
 /**
@@ -11,8 +11,7 @@ const {
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
-  console.log(Product);
+  console.log("db synced!")
   // Creating Users
   const users = await Promise.all([
     User.create({
@@ -31,9 +30,6 @@ async function seed() {
       email: "outoffakeemails@oops.edu",
     }),
   ]);
-
-  console.log(`seeded ${users.length} users`);
-
   const products = await Promise.all([
     Product.create({
       name: "Dr Pepper",
@@ -52,14 +48,11 @@ async function seed() {
       description: "Don't ask where I got this from I won't tell you.",
     }),
     Product.create({
-      name: "Blue stuff under my fridge",
+      name: "Blue stuff under my sink",
       price: 0.01,
       description: "Wait you aren't seriously considering buying this are you",
     }),
   ]);
-
-  console.log(`seeded ${products.length} products`);
-
   const reviews = await Promise.all([
     Review.create({
       userId: 1,
@@ -74,17 +67,14 @@ async function seed() {
       content: "I now know what regret tastes like. bad.",
     }),
     Review.create({ userId: 2, productId: 3, rating: 1, content: "hbelp" }),
+    Review.create({ userId: 2, productId: 3, rating: 5, content: "I resent the fact that I do not hate this" }),
   ]);
 
-  console.log(`seeded${reviews.length} reviews`);
-
-  console.log(`seeded successfully!`);
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
+  const cart = await Promise.all([
+    ProductInCart.create({userId: 1, productId: 1, quantity: 6}),
+    ProductInCart.create({userId: 1, productId: 2, quantity: 1}),
+    ProductInCart.create({userId: 1, productId: 4, quantity: 2}),
+    ]);
 }
 
 /*
@@ -93,16 +83,13 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log("closing db connection");
     await db.close();
-    console.log("db connection closed");
   }
 }
 

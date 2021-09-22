@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Product },
+  models: { Product, Review },
 } = require("../db");
 
 router.get("/", async (req, res, next) => {
@@ -14,8 +14,8 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:productId", async (req, res, next) => {
   try {
-    const productId = req.params.productId;
-    const product = await Product.findByPk(productId);
+    const productId = parseInt(req.params.productId);
+    const product = await Product.findByPk(productId, {include: { model: Review, as: 'reviews' }});
     res.json(product);
   } catch (error) {
     next(error);
@@ -34,7 +34,7 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:productId", async (req, res, next) => {
   try {
-    const productId = req.params.productId;
+    const productId = parseInt(req.params.productId);
     const { name, price, description } = req.body;
     const product = await Product.findByPk(productId);
     res.json(await product.update({ name, price, description }));
@@ -45,7 +45,7 @@ router.put("/:productId", async (req, res, next) => {
 
 router.delete("/:productId", async (req, res, next) => {
   try {
-    const productId = req.params.productId;
+    const productId = parseInt(req.params.productId);
     const product = await Product.findByPk(productId);
     await product.destroy();
     res.status(203).json(product);
