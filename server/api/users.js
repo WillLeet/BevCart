@@ -29,8 +29,8 @@ router.get("/:userId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { name, password, email } = req.body;
-    const user = await User.create({ name, password, email, isAdmin: false});
+    const { username, password, email } = req.body;
+    const user = await User.create({ username, password, email });
     res.json(user);
   } catch (error) {
     next(error);
@@ -40,9 +40,9 @@ router.post("/", async (req, res, next) => {
 router.put("/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    const { name, password, email } = req.body;
+    const { username, password, email } = req.body;
     const user = await User.findByPk(userId);
-    res.json(await user.update({ name, password, email }));
+    res.json(await user.update({ username, password, email }));
   } catch (error) {
     next(error);
   }
