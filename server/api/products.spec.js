@@ -84,7 +84,7 @@ describe("Product routes", () => {
           description: "Don't ask where I got this from I won't tell you.",
         },
         {
-          name: "Blue stuff under my fridge",
+          name: "Blue stuff under my sink",
           price: 0.01,
           description:
             "Wait you aren't seriously considering buying this are you",

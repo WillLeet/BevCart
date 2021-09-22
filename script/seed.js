@@ -17,7 +17,7 @@ async function seed() {
     User.create({ username: 'admin', password: '123', email: "admin@devcart.org"}),
   ])
 
-  console.log(`seeded ${users.length} users`);
+  //console.log(`seeded ${users.length} users`);
 
   const products = await Promise.all([
     Product.create({ 
@@ -51,18 +51,18 @@ async function seed() {
     })
   ])
 
-  console.log(`seeded ${products.length} products`);
+  //console.log(`seeded ${products.length} products`);
 
   const reviews = await Promise.all([
     Review.create({ userId: 1, productId: 1, rating: 5, content: "OH MY GOD MY MOUTH CRIES TEARS OF JOY"}),
     Review.create({ userId: 3, productId: 1, rating: 4, content: "I don't care how good this tastes, I refuse to rate 5 stars on principle. Fite me."}),
     Review.create({ userId: 2, productId: 4, rating: 2, content: "I now know what regret tastes like. bad."}),
     Review.create({ userId: 2, productId: 5, rating: 1, content: "hbelp"}),
-    Review.create({ userId: 3, productId: 5, rating: 3, content: "It's growing on me. Should I be worried?"}),
+    Review.create({ userId: 3, productId: 5, rating: 3, content: "It's growing on me. WHY IS IT GROWING ON ME"}),
     Review.create({ userId: 1, productId: 2, rating: 1, content: "I wanted grape flavor >:("}),
   ])
 
-  console.log(`seeded ${reviews.length} reviews`)
+  //console.log(`seeded ${reviews.length} reviews`)
 
   const exampleCart = await Promise.all([
     ProductInCart.create({userId: 1, productId: 2, quantity: 6}),
@@ -70,9 +70,9 @@ async function seed() {
     ProductInCart.create({userId: 1, productId: 4, quantity: 2})
   ])
 
-  console.log("user 1 cart generated")
+  //console.log("user 1 cart generated")
 
-  console.log(`seeded successfully!`)
+  //console.log(`seeded successfully!`)
   return {
     users: {
       cody: users[0],
