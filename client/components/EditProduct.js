@@ -34,7 +34,6 @@ class EditProduct extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.updateProduct({...this.props.product, ...this.state})
-    window.location.href = `/products/${this.props.product.id}`;
   }
 
   render() {
