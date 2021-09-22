@@ -71,3 +71,12 @@ nav.nav-right{
   justify-content: flex-start;
   align-content: center;
 }
+
+#cart{
+  width: 100%;
+  background-color: #F5F1E3;
+}
+
+.flex-box{
+  display:flex
+}
