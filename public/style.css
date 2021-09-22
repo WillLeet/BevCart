@@ -46,3 +46,7 @@ nav.nav-right{
   font-size: 36px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.nav-left{
+  padding: 10px;
+}
