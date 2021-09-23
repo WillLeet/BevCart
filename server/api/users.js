@@ -6,7 +6,6 @@ const {
 router.get("/", async (req, res, next) => {
   try {
     const { username } = await req.query;
-    console.log("username", username);
     if (username) {
       const user = await User.findAll({
         where: {
@@ -20,7 +19,7 @@ router.get("/", async (req, res, next) => {
         // explicitly select only the id and username fields - even though
         // users' passwords are encrypted, it won't help if we just
         // send everything to anyone who asks!
-        attributes: ["id", "username"],
+        attributes: ["id", "email", "username"],
       });
       res.json(users);
     }
@@ -68,7 +67,7 @@ router.delete("/:userId", async (req, res, next) => {
     const userId = req.params.userId;
     const user = await User.findByPk(userId);
     await user.destroy();
-    res.status(500).json(user);
+    res.status(203).json(user);
   } catch (error) {
     next(error);
   }

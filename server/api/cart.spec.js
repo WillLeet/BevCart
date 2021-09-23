@@ -73,7 +73,7 @@ describe("Cart routes", () => {
     });
     it("DELETE /api/cart/", async () => {
       const res = await request.delete("/api/cart/1/2").timeout(200);
-      expect(res.status).to.equal(500);
+      expect(res.status).to.equal(203);
     });
   });
   
