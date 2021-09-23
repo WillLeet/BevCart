@@ -57,7 +57,7 @@ async function seed() {
     }),
     Product.create({
       name: "Mystery Drink",
-      price: 8.0,
+      price: 8.00,
       description:
         "Bedazzle your pallette with our beverage scientists' choice selection for the week!",
     }),
