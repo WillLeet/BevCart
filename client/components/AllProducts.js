@@ -31,8 +31,8 @@ export class AllProducts extends React.Component {
         <div id="card" key={product.id}>
           <img id="product-image-card" src={product.imageUrl} />
           <Link className="product-content-card" to={`/products/${product.id}`}>{product.name} <br /> </Link>
-          <p className="product-content-card">{product.description}</p>
-          <p className="product-price-card">Price: {product.price}</p>
+          <div className="product-content-card">{product.description}</div>
+          <div className="product-price-card">Price: {product.price}</div>
           <span
           onClick={() => this.props.deleteProduct(product.id)}
         >
