@@ -30,7 +30,7 @@ router.delete("/:productId/:userId/", async (req, res, next) => {
     const productId = parseInt(req.params.productId);
     const review = await Review.findOne({where: { userId: userId, productId: productId} });
     await review.destroy();
-    res.status(500).json(review);
+    res.status(203).json(review);
   } catch (error) {
     next(error);
   }

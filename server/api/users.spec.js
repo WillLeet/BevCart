@@ -108,7 +108,7 @@ describe("User routes", () => {
     });
     it("DELETE /api/users/:userId", async () => {
       const res = await request.delete("/api/users/1").timeout(200);
-      expect(res.status).to.equal(500);
+      expect(res.status).to.equal(203);
     });
   });
   // end describe('/api/users')

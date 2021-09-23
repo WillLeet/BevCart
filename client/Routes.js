@@ -4,9 +4,11 @@ import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
 import AllProducts from './components/AllProducts';
 import SingleProduct from './components/SingleProduct';
+import AdminUserView from './components/AdminUserView';
 import Cart from "./components/Cart";
 import Home from './components/Home';
 import {me} from './store'
+
 
 /**
  * COMPONENT
@@ -28,6 +30,7 @@ class Routes extends Component {
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/cart" component={Cart} />
+            <Route path="/admin/users" component={AdminUserView} />//
           </Switch>
         ) : (
           <Switch>

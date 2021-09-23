@@ -56,7 +56,7 @@ describe("Review routes", () => {
     });
     it("DELETE /api/reviews/", async () => {
       const res = await request.delete("/api/reviews/3/2").timeout(200);
-      expect(res.status).to.equal(500);
+      expect(res.status).to.equal(203);
     });
   });
   
