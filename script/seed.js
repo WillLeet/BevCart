@@ -124,6 +124,7 @@ async function seed() {
     ProductInCart.create({ userId: 2, productId: 2, quantity: 6 }),
     ProductInCart.create({ userId: 2, productId: 3, quantity: 6 }),
     ProductInCart.create({ userId: 3, productId: 4, quantity: 6 }),
+    ProductInCart.create({ userId: 4, productId: 4, quantity: 6 }),
   ]);
 
   //console.log("user 1 cart generated")

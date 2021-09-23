@@ -5,13 +5,25 @@ const {
 
 router.get("/", async (req, res, next) => {
   try {
-    const users = await User.findAll({
-      // explicitly select only the id and username fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ["id", "username"],
-    });
-    res.json(users);
+    const { username } = await req.query;
+    console.log("username", username);
+    if (username) {
+      const user = await User.findAll({
+        where: {
+          username: username,
+        },
+        attributes: ["id", "username", "email", "isAdmin"],
+      });
+      res.json(user[0]);
+    } else {
+      const users = await User.findAll({
+        // explicitly select only the id and username fields - even though
+        // users' passwords are encrypted, it won't help if we just
+        // send everything to anyone who asks!
+        attributes: ["id", "username"],
+      });
+      res.json(users);
+    }
   } catch (err) {
     next(err);
   }
@@ -23,6 +35,7 @@ router.get("/:userId", async (req, res, next) => {
     const user = await User.findByPk(userId, {
       attributes: ["username", "email", "isAdmin"],
     });
+
     res.json(user);
   } catch (error) {
     next(error);
