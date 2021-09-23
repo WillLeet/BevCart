@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
+import {Redirect} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -63,7 +64,7 @@ const mapDispatch = dispatch => {
       const username = evt.target.username.value
       const password = evt.target.password.value
       await dispatch(authenticate(username, password, formName))
-      location.href="/home"
+      window.location = '/home';
     }
   }
 }
