@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCart } from "../store/cart";
 import { fetchUserByName } from "../store/singleUser";
-
+import { fetchProduct } from "../store/singleProduct";
 /**
  * COMPONENT
  */
@@ -10,6 +10,8 @@ import { fetchUserByName } from "../store/singleUser";
 class Cart extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {};
   }
   async componentDidMount() {
     if (window.localStorage.token) {
@@ -18,6 +20,10 @@ class Cart extends Component {
       } catch (err) {
         console.error(err);
       }
+    } else {
+      JSON.parse(window.localStorage.cart).forEach((product) => {
+        this.setState({ [product]: product });
+      });
     }
   }
 
@@ -26,6 +32,14 @@ class Cart extends Component {
       if (window.localStorage.token) {
         try {
           await this.props.loadUser(this.props.username);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+    if (prevProps.user !== this.props.user) {
+      if (window.localStorage.token) {
+        try {
           await this.props.loadCart(this.props.user.id);
         } catch (err) {
           console.error(err);
@@ -46,7 +60,6 @@ class Cart extends Component {
           <h1>Guest Cart</h1>
           <div id="cart" className="flex-box">
             {JSON.parse(window.localStorage.cart).map((item, key) => {
-              console.log(item);
               return (
                 <h4 key={key}>
                   <p>ProductId: {item.productId}</p>
@@ -64,7 +77,6 @@ class Cart extends Component {
           <h1>{user.username}'s Cart</h1>
           <div id="cart" className="flex-box">
             {cart.map((item, key) => {
-              console.log(item);
               return (
                 <h4 key={key}>
                   <p>ProductId: {item.productId}</p>
