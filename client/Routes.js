@@ -17,10 +17,9 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
   }
-
   render() {
     const {isLoggedIn} = this.props
-
+    let isAdmin=true
     return (
       <div>
         {isLoggedIn ? (
@@ -30,7 +29,7 @@ class Routes extends Component {
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/cart" component={Cart} />
-            <Route path="/admin/users" component={AdminUserView} />//
+            isAdmin?(<Route exact path="/admin/users" component={AdminUserView} />)//
           </Switch>
         ) : (
           <Switch>

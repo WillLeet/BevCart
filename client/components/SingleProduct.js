@@ -36,7 +36,7 @@ export class SingleProduct extends React.Component {
         {product.description}
         </div>
         <div id="single-product-price">
-        Price: {product.price}
+        Price: ${product.price}
         </div>
       <button>ADD TO CART</button>
       <EditProduct />
