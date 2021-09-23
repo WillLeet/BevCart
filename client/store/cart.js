@@ -86,21 +86,3 @@ export default function cartReducer(cart = [], action) {
         return cart;
     }
   }
-  
-
-  /*
-export default function studentsReducer(state = initialState, action) {
-  switch (action.type){
-    case SET_STUDENTS:
-      return action.students
-    case CREATE_STUDENT:
-      return [...state, action.student]
-    case DELETE_STUDENT:
-      return state.filter(student => student.id !== action.student.id)
-    case UPDATE_STUDENT:
-      return state.map(student => (student.id === action.student.id ? action.student : student))
-    default:
-      return state
-  }
-}
-  */
