@@ -3,6 +3,7 @@ import axios from "axios";
 /*
   EXPORTS:
     fetchUser
+    fetchUserByName
     updateUser
 */
 
@@ -30,6 +31,17 @@ const editUser = (user) => ({
 /**
  * THUNK CREATORS
  */
+
+export const fetchUserByName = (username) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/users/?username=${username}`);
+      return dispatch(setUser(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 
 export const fetchUser = (userId) => {
   return async (dispatch) => {

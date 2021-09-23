@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 /**
  * COMPONENT
  */
+
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
@@ -56,7 +57,7 @@ const mapSignup = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
     async handleSubmit(evt) {
       evt.preventDefault();
@@ -64,7 +65,7 @@ const mapDispatch = (dispatch) => {
       const username = evt.target.username.value;
       const password = evt.target.password.value;
       await dispatch(authenticate(username, password, formName));
-      window.history.back();
+      history.push("/home");
     },
   };
 };
