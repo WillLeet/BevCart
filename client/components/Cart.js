@@ -11,7 +11,9 @@ class Cart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      products: [],
+    };
   }
   async componentDidMount() {
     if (window.localStorage.token) {
@@ -22,7 +24,11 @@ class Cart extends Component {
       }
     } else {
       JSON.parse(window.localStorage.cart).forEach((product) => {
-        this.setState({ [product]: product });
+        console.log(product);
+        this.setState(
+          { products: [...this.state.products, product] },
+          console.log(this.state, [...this.state.products, product])
+        );
       });
     }
   }
@@ -38,7 +44,7 @@ class Cart extends Component {
       }
     }
     if (prevProps.user !== this.props.user) {
-      if (window.localStorage.token) {
+      if (window.localStorage.token && this.props.user.id) {
         try {
           await this.props.loadCart(this.props.user.id);
         } catch (err) {
@@ -96,11 +102,13 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
   username: state.auth.username,
   user: state.user,
+  product: state.product,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadCart: (userId) => dispatch(fetchCart(userId)),
   loadUser: (username) => dispatch(fetchUserByName(username)),
+  loadProduct: (productId) => dispatch(fetchProduct(productId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
