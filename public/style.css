@@ -57,19 +57,24 @@ nav.nav-right{
 }
 
 #card{
-  height: 200px;
-  width: 125px;
+  height: 250px;
+  width: 175px;
   margin: 5px;
   background-color: #F5F1E3;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #product-list{
   display: flex;
+  height: 100vh;
   margin: 50px;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: center;
+  justify-content: center;
+  align-content: flex-start;
 }
 
 #cart{
@@ -79,4 +84,24 @@ nav.nav-right{
 
 .flex-box{
   display:flex
+}
+
+#product-image-card{
+  margin: 5px;
+  width: 90px;
+  height: 100px;
+  align-self:center
+}
+
+.product-content-card{
+  align-self: center;
+  margin:
+  2px;
+  flex-wrap: wrap;
+}
+
+.product-price-card{
+  align-self: center;
+  margin:
+  2px;
 }

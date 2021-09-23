@@ -28,13 +28,17 @@ export class AllProducts extends React.Component {
       <div id="product-list">
       {
         this.props.products.map(product=> (
-        <div id="card"key={product.id}>
-          <Link to={`/products/${product.id}`}>{product.name} {product.description} {product.price} <br /> </Link>
+        <div id="card" key={product.id}>
+          <img id="product-image-card" src={product.imageUrl} />
+          <Link className="product-content-card" to={`/products/${product.id}`}>{product.name} <br /> </Link>
+          <p className="product-content-card">{product.description}</p>
+          <p className="product-price-card">Price: {product.price}</p>
           <span
           onClick={() => this.props.deleteProduct(product.id)}
         >
           x
           </span>
+
         </div>))
         }
       </div>
