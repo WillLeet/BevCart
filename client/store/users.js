@@ -4,7 +4,7 @@ import axios from "axios";
   EXPORTS:
     fetchUsers
     deleteUser
-    addUser
+    createUser
 */
 
 /**
@@ -60,7 +60,7 @@ export const deleteUser = (userId) => {
   };
 };
 
-export const addUser = (user) => {
+export const createUser = (user) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post("/api/users", user);
