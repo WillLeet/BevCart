@@ -6,6 +6,7 @@ const {
 router.get("/", async (req, res, next) => {
   try {
     const { username } = await req.query;
+    console.log("username", username);
     if (username) {
       const user = await User.findAll({
         where: {
@@ -13,7 +14,7 @@ router.get("/", async (req, res, next) => {
         },
         attributes: ["id", "username", "email", "isAdmin"],
       });
-      res.json(user);
+      res.json(user[0]);
     } else {
       const users = await User.findAll({
         // explicitly select only the id and username fields - even though
