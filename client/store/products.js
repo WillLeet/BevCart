@@ -3,7 +3,7 @@ import axios from "axios";
 /*
   EXPORTS:
     fetchProducts
-    removeProduct
+    deleteProduct
     addProduct
 */
 
