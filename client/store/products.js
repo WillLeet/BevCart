@@ -4,7 +4,7 @@ import axios from "axios";
   EXPORTS:
     fetchProducts
     deleteProduct
-    addProduct
+    createProduct
 */
 
 /**
