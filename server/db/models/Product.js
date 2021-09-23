@@ -11,7 +11,7 @@ const Product = db.define("product", {
     },
   },
   price: {
-    type: Sequelize.DOUBLE,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true,

@@ -23,19 +23,24 @@ export class SingleProduct extends React.Component {
   render() {
     const product = this.props.product
     return (
-      <div>
-      <ul>
-        <li>
-        {product.name}
-        </li>
-        <li>
+      <div id="single-product">
+      <div id="single-product-image">
+        <img src = {product.imageUrl} />
+      </div>
+      <div id="single-product-details">
+        <div id="single-product-title">
+        Name: {product.name}
+        </div>
+        <div id="single-product-description">
+        Description:
         {product.description}
-        </li>
-        <li>
-          {product.price}
-        </li>
-      </ul>
-        <EditProduct />
+        </div>
+        <div id="single-product-price">
+        Price: {product.price}
+        </div>
+      <button>ADD TO CART</button>
+      <EditProduct />
+      </div>
       </div>)
   }
 }
