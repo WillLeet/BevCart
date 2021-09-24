@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchCart, updateQuantity, removeItemFromCart } from "../store/cart";
 import { fetchUserByName } from "../store/singleUser";
 import { fetchProduct } from "../store/singleProduct";
+import GuestCart from "./GuestCart";
 /**
  * COMPONENT
  */
@@ -109,24 +110,9 @@ class Cart extends Component {
     const productsInCart = this.state.products;
 
     if (!window.localStorage.token) {
-      if (!window.localStorage.cart) {
-        /*  We can not store  arrays in local storage */
-        window.localStorage.cart = JSON.stringify([]);
-      }
       return (
         <>
-          <h1>Guest Cart</h1>
-          <div id="cart" className="flex-box">
-            {JSON.parse(window.localStorage.cart).map((item, key) => {
-              return (
-                <h4 key={key}>
-                  <p>ProductId: {item.productId}</p>
-                  <p>Quantity: {item.quantity}</p>
-                  <br />
-                </h4>
-              );
-            })}
-          </div>
+          <GuestCart />
         </>
       );
     } else {
