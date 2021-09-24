@@ -25,6 +25,14 @@ const AuthForm = (props) => {
           </label>
           <input name="password" type="password" />
         </div>
+        {(displayName==="Sign Up")?(
+        <div>
+          <label htmlFor="email">
+            <small>email</small>
+          </label>
+          <input name="email" type="email" />
+        </div>
+        ):(null)}
         <div>
           <button type="submit">{displayName}</button>
         </div>
@@ -64,7 +72,10 @@ const mapDispatch = (dispatch, { history }) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      await dispatch(authenticate(username, password, formName));
+      const email = evt.target.email?(evt.target.email.value):(null)
+      const authenticateStatement = (email?([formName,username, password, email]):([formName, username,password]))
+      console.log(...authenticateStatement)
+      await dispatch(authenticate(authenticateStatement));
       history.push("/home");
     },
   };
