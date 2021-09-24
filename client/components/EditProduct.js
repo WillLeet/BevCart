@@ -9,7 +9,8 @@ class EditProduct extends Component {
     this.state = {
       name: '',
       description: '',
-      price: ''
+      price: '',
+      isAdmin: this.props.isAdmin
     };
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -20,7 +21,7 @@ class EditProduct extends Component {
       this.setState({
         name: this.props.product.name || '',
         description: this.props.product.description || '',
-        price: this.props.product.price || ''
+        price: this.props.product.price || '',
       })
     }
   }
@@ -37,8 +38,9 @@ class EditProduct extends Component {
   }
 
   render() {
-    const { name, description, price } = this.state;
+    const { name, description, price, isAdmin } = this.state;
     return (
+      isAdmin?(
       this.props.product ? (
       <div>
       <form onSubmit={this.handleSubmit}>
@@ -49,12 +51,13 @@ class EditProduct extends Component {
         <Link to="/products">Cancel</Link>
       </form>
       </div>) : (<h1>LOADING</h1>)
-    );
+    ):(null));
   }
 }
 
-const mapStateToProps = ({ product }) => ({
-  product
+const mapStateToProps = ({ product, auth }) => ({
+  product,
+  isAdmin: auth.isAdmin
 });
 
 const mapDispatchToProps = (dispatch) => {

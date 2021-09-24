@@ -24,7 +24,7 @@ export class AllProducts extends React.Component {
   render() {
     return (
       <div>
-     <NewProduct />
+        {this.props.isAdmin?(<NewProduct />):(null)}
       <div id="product-list">
       {
         this.props.products.map(product=> (
@@ -33,11 +33,12 @@ export class AllProducts extends React.Component {
           <Link className="product-content-card" to={`/products/${product.id}`}>{product.name} <br /> </Link>
           <div className="product-content-card">{product.description}</div>
           <div className="product-price-card">Price: ${product.price}</div>
+          {this.props.isAdmin?(
           <span
           onClick={() => this.props.deleteProduct(product.id)}
         >
           x
-          </span>
+          </span>):(null)}
 
         </div>))
         }
@@ -48,7 +49,8 @@ export class AllProducts extends React.Component {
 
 const mapState = (state) => {
   return {
-    products: state.products
+    products: state.products,
+    isAdmin: state.auth.isAdmin
   };
 };
 
