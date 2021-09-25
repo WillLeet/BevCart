@@ -6,6 +6,12 @@ const {
 router.get("/", async (req, res, next) => {
   try {
     const { username } = await req.query;
+    const { token } = await req.query;
+    if (token) {
+      const user = await User.findByToken(token);
+      res.json(user);
+      return;
+    }
     if (username) {
       const user = await User.findAll({
         where: {
