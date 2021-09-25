@@ -48,6 +48,26 @@ export class SingleProduct extends React.Component {
         };
         this.props.addItemToCart(item);
       }
+    } else {
+      if (!window.localStorage.cart) {
+        window.localStorage.cart = JSON.stringify([]);
+      }
+      let cart = JSON.parse(window.localStorage.cart);
+      let productInCart = cart.filter(
+        (item) => +item.productId === productId
+      )[0];
+      if (productInCart) {
+        const index = cart.indexOf(productInCart);
+        productInCart.quantity += 1;
+        cart[index] = productInCart;
+      } else {
+        const newProduct = {
+          productId: productId,
+          quantity: 1,
+        };
+        cart.push(newProduct);
+      }
+      window.localStorage.cart = JSON.stringify(cart);
     }
   }
 

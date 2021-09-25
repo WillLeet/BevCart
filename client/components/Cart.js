@@ -16,6 +16,7 @@ class Cart extends Component {
       products: [],
     };
     this.updateState = this.updateState.bind(this);
+    this.setCartToState = this.setCartToState.bind(this);
   }
   async componentDidMount() {
     if (window.localStorage.token) {
@@ -24,11 +25,34 @@ class Cart extends Component {
       } catch (err) {
         console.error(err);
       }
-    } else {
-      JSON.parse(window.localStorage.cart).forEach((product) => {
-        this.setState({ products: [...this.state.products, product] });
-      });
     }
+  }
+
+  async setCartToState() {
+    await this.props.loadCart(this.props.user.id);
+    const products = (
+      await Promise.all(
+        this.props.cart.map((product) => {
+          return this.props.loadProduct(product.productId);
+        })
+      )
+    ).map((product) => {
+      const prod = product.product;
+      /* Because we want to have quantity on each product */
+      const _prod = this.props.cart.filter(
+        (item) => item.productId === prod.id
+      )[0];
+      prod.quantity = _prod.quantity;
+      prod.productId = _prod.productId;
+      if (this.props.user) {
+        prod.userId = this.props.user.id;
+      }
+      return prod;
+    });
+
+    this.setState({
+      products,
+    });
   }
 
   async componentDidUpdate(prevProps) {
@@ -44,30 +68,7 @@ class Cart extends Component {
     if (prevProps.user !== this.props.user) {
       if (window.localStorage.token && this.props.user.id) {
         try {
-          await this.props.loadCart(this.props.user.id);
-          const products = (
-            await Promise.all(
-              this.props.cart.map((product) => {
-                return this.props.loadProduct(product.productId);
-              })
-            )
-          ).map((product) => {
-            const prod = product.product;
-            /* Because we want to have quantity on each product */
-            const _prod = this.props.cart.filter(
-              (item) => item.productId === prod.id
-            )[0];
-            prod.quantity = _prod.quantity;
-            prod.productId = _prod.productId;
-            if (this.props.user) {
-              prod.userId = this.props.user.id;
-            }
-            return prod;
-          });
-
-          this.setState({
-            products,
-          });
+          this.setCartToState();
         } catch (err) {
           console.error(err);
         }
@@ -77,29 +78,7 @@ class Cart extends Component {
 
   async updateState() {
     try {
-      const products = (
-        await Promise.all(
-          this.props.cart.map(async (product) => {
-            return await this.props.loadProduct(product.productId);
-          })
-        )
-      ).map((product) => {
-        const prod = product.product;
-        /* Because we want to have quantity on each product */
-        const _prod = this.props.cart.filter(
-          (item) => item.productId === prod.id
-        )[0];
-        prod.quantity = _prod.quantity;
-        prod.productId = _prod.productId;
-        if (this.props.user) {
-          prod.userId = this.props.user.id;
-        }
-        return prod;
-      });
-
-      this.setState({
-        products,
-      });
+      this.setCartToState();
     } catch (err) {
       console.error(err);
     }
@@ -108,6 +87,10 @@ class Cart extends Component {
   render() {
     const user = this.props.user;
     const productsInCart = this.state.products;
+    const total = productsInCart.reduce((acc, product) => {
+      acc += product.price * product.quantity;
+      return acc;
+    }, 0);
 
     if (!window.localStorage.token) {
       return (
@@ -154,10 +137,24 @@ class Cart extends Component {
                   >
                     Decrease
                   </button>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      await this.props.removeProduct(
+                        item.userId,
+                        item.productId
+                      );
+                      await this.updateState();
+                    }}
+                  >
+                    Remove Item
+                  </button>
                 </div>
               );
             })}
           </div>
+          <h1>Total: ${total.toFixed(2)}</h1>
+          <button>Checkout</button>
         </>
       );
     }
