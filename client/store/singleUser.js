@@ -43,6 +43,17 @@ export const fetchUserByName = (username) => {
   };
 };
 
+export const fetchUserByToken = (token) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/users/?token=${token}`);
+      return dispatch(setUser(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const fetchUser = (userId) => {
   return async (dispatch) => {
     try {
