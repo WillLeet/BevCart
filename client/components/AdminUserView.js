@@ -21,15 +21,13 @@ export class AdminUserView extends React.Component {
       <div>
         <div id="user-list">
           {this.props.users.map((user) => (
-            <Link key={user.id} to={`/admin/users/${user.id}`}>
               <div id="user-card">
-                <p>{user.username}</p>
+                <p><Link key={user.id} to={`/admin/users/${user.id}`}>{user.username}</Link></p>
                 <p>{user.email}</p>
                 <button onClick={() => this.props.deleteUser(user.id)}>
                   Delete User
                 </button>
               </div>
-            </Link>
           ))}
         </div>
       </div>

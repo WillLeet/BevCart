@@ -80,7 +80,7 @@ export const createUser = (user) => {
 export default function usersReducer(users = [], action) {
   switch (action.type) {
     case SET_USERS:
-      return action.userss;
+      return action.users;
     case DELETE_USER:
       return users.filter((user) => user.id !== action.userId);
     case ADD_USER:

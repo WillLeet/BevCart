@@ -13,6 +13,7 @@ async function auth(req, res, next) {
     next(err);
   }
 }
+
 const router = require("express").Router();
 const {
   models: { User },
