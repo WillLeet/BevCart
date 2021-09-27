@@ -25,7 +25,7 @@ class Cart extends Component {
         if(this.props.user.id){
         await this.props.loadCart(this.props.user.id);
         console.log(this.props.order);
-        this.setState({products: this.props.order.orderedproducts})
+        this.updateState();
         }
         console.log("mounted!")
       } catch (err) {
@@ -63,12 +63,12 @@ class Cart extends Component {
   }
   */
 
-  componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
     if (prevProps.user !== this.props.user) {
       if (window.localStorage.token && this.props.user.id) {
         try {
           console.log("incomponentdidupate",this.props.user);
-          this.props.loadCart(this.props.user.id);
+          await this.props.loadCart(this.props.user.id);
           if(this.props.order.orderedproducts){this.setState({products: this.props.order.orderedproducts})}
         } catch (err) {
           console.error(err);
@@ -77,15 +77,15 @@ class Cart extends Component {
     }
   }
 
-  
-  updateState() {
+
+  async updateState() {
     try {
       this.setState({products: this.props.order.orderedproducts});
     } catch (err) {
       console.error(err);
     }
   }
-  
+
 
   render() {
     const user = this.props.user;
@@ -129,18 +129,17 @@ class Cart extends Component {
                   <button
                     type="button"
                     value={item.orderId}
-                    onClick={() => {
+                    onClick={async () => {
                       item.quantity -= 1;
-                      this.updateState();
                       if (item.quantity === 0) {
-                         this.props.removeProduct(
+                         await this.props.removeProduct(
                           item.orderId,
                           item.productId
                         );
-                        this.props.loadCart(this.props.user.id);
+                        await this.props.loadCart(this.props.user.id);
                       } else {
-                        this.props.updateQuantity(item);
-                      }                      
+                        await this.props.updateQuantity(item);
+                      }
                       this.updateState();
                     }}
                   >
