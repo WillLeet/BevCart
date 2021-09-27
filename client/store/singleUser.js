@@ -71,18 +71,14 @@ export const fetchUser = (userId) => {
 };
 
 export const updateUser = (user) => {
-  return async (dipatch) => {
+  return async (dispatch) => {
     try {
-      const token = window.localStorage.token;
-      const { data } = await axios.put(
-        `/api/users/${user.id}`,
-        {
-          headers: {
-            auth: token,
-          },
+      const token = window.localStorage.getItem("token");
+      const { data } = await axios.put(`/api/users/${user.id}`, user, {
+        headers: {
+          auth: token,
         },
-        user
-      );
+      });
       return dispatch(editUser(data));
     } catch (error) {
       console.error(error);

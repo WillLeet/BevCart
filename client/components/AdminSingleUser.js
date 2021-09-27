@@ -5,8 +5,14 @@ import { fetchUser, updateUser } from "../store/singleUser";
 export class SingleUser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = {
+      username: "",
+      email: "",
+      isAdmin: false,
+      id: null,
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -20,45 +26,54 @@ export class SingleUser extends React.Component {
   async componentDidUpdate(prevProps) {
     if (prevProps.user !== this.props.user) {
       this.setState({
-        value: this.props.user.isAdmin ? "admin" : "user",
+        username: this.props.user.username,
+        email: this.props.user.email,
+        isAdmin: this.props.user.isAdmin,
+        id: this.props.user.id,
       });
     }
   }
 
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   const newUser = this.props.user;
-  //   newUser.isAdmin = event.target.value === "admin" ? true : false;
-  //   this.props.updateUser(newUser);
-  // }
-
-  handleChange(event) {
-    this.setState({
-      value: event.target.value,
-    });
-    const newUser = this.props.user;
-    newUser.isAdmin = event.target.value === "admin" ? true : false;
+  handleSubmit(event) {
+    event.preventDefault();
+    const newUser = this.state;
     this.props.updateUser(newUser);
   }
 
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
   render() {
-    const user = this.props.user;
+    const user = this.state;
+    console.log(user);
     return (
-      <div id="single-user">
-        <div id="single-user-details">
-          <div id="single-user-name">Name: {user.username}</div>
-          <div id="single-user-email">Email: {user.email}</div>
-          <div id="single-user-isAdmin">
-            isAdmin: {user.isAdmin ? "true" : "false"}
-          </div>
-          <form onSubmit={this.handleSubmit}>
-            <select value={this.state.value} onChange={this.handleChange}>
-              <option value="admin">admin</option>
-              <option value="user">user</option>
+      <div id="single">
+        <form onSubmit={this.handleSubmit}>
+          <div id="single-user-details">
+            <input
+              name="username"
+              onChange={this.handleChange}
+              value={user.username}
+            />
+            <input
+              name="email"
+              onChange={this.handleChange}
+              value={user.email}
+            />
+            <select
+              name="isAdmin"
+              value={user.isAdmin}
+              onChange={this.handleChange}
+            >
+              <option value="true">admin</option>
+              <option value="false">user</option>
             </select>
-          </form>
-          {/* <EditProduct /> */}
-        </div>
+          </div>
+          <button>Submit Changes</button>
+        </form>
       </div>
     );
   }

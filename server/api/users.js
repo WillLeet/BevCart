@@ -75,9 +75,9 @@ router.post("/", async (req, res, next) => {
 router.put("/:userId", auth, async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    const { username, password, email } = req.body;
+    const { username, password, email, isAdmin } = req.body;
     const user = await User.findByPk(userId);
-    res.json(await user.update({ username, password, email }));
+    res.json(await user.update({ username, password, email, isAdmin }));
   } catch (error) {
     next(error);
   }
