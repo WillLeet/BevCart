@@ -7,10 +7,9 @@ class EditProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      description: '',
-      price: '',
-      isAdmin: this.props.isAdmin
+      name: this.props.product.name||'',
+      description: this.props.product.description||'',
+      price: this.props.product.price||'',
     };
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -21,7 +20,7 @@ class EditProduct extends Component {
       this.setState({
         name: this.props.product.name || '',
         description: this.props.product.description || '',
-        price: this.props.product.price || '',
+        price: this.props.product.price || ''
       })
     }
   }
@@ -38,7 +37,8 @@ class EditProduct extends Component {
   }
 
   render() {
-    const { name, description, price, isAdmin } = this.state;
+    const { name, description, price} = this.state;
+    const isAdmin = this.props.isAdmin
     return (
       isAdmin?(
       this.props.product ? (
