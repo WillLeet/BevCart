@@ -1,9 +1,25 @@
+async function auth(req,res,next){
+  try{
+  let token = req.headers.auth
+  const user = await User.findByToken(token)
+  if (user.isAdmin){
+  console.log('User is an admin, authentication complete')
+  next()
+  }
+  else{
+    console.log('not admin, access denied')
+  }}
+  catch(err){
+    console.log('not authenticated')
+    next(err)
+  }
+}
 const router = require("express").Router();
 const {
   models: { User },
 } = require("../db");
 
-router.get("/", async (req, res, next) => {
+router.get("/", auth, async (req, res, next) => {
   try {
     const { username } = await req.query;
     const { token } = await req.query;
@@ -21,6 +37,7 @@ router.get("/", async (req, res, next) => {
       });
       res.json(user[0]);
     } else {
+
       const users = await User.findAll({
         // explicitly select only the id and username fields - even though
         // users' passwords are encrypted, it won't help if we just
@@ -34,7 +51,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:userId", async (req, res, next) => {
+router.get("/:userId", auth, async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.findByPk(userId, {
