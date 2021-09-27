@@ -8,40 +8,38 @@ export class AdminUserView extends React.Component {
     super(props);
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     try {
       await this.props.fetchUsers();
       console.log(this.props.users);
-    }
-    catch (err){
-      console.error(err)
+    } catch (err) {
+      console.error(err);
     }
   }
   render() {
     return (
       <div>
-          <div id ="user-list">
-      {
-        this.props.users.map(user=> (
-        <div id="user-card" key={user.id}>
-          <p >{user.username}</p>
-          <p >{user.email}</p>
-          <button
-          onClick={() => this.props.deleteUser(user.id)}
-        >
-          Delete User
-          </button>
-
-        </div>))
-        }
+        <div id="user-list">
+          {this.props.users.map((user) => (
+            <Link key={user.id} to={`/admin/users/${user.id}`}>
+              <div id="user-card">
+                <p>{user.username}</p>
+                <p>{user.email}</p>
+                <button onClick={() => this.props.deleteUser(user.id)}>
+                  Delete User
+                </button>
+              </div>
+            </Link>
+          ))}
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 
 const mapState = (state) => {
   return {
-    users: state.users
+    users: state.users,
   };
 };
 
