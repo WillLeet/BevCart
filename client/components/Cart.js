@@ -147,12 +147,12 @@ class Cart extends Component {
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                       this.props.removeProduct(
+                    onClick={async () => {
+                       await this.props.removeProduct(
                         item.orderId,
                         item.productId
                       );
-                      this.props.loadCart(this.props.user.id);
+                      await this.props.loadCart(this.props.user.id);
                       this.updateState();
                     }}
                   >
