@@ -1,17 +1,16 @@
-async function auth(req,res,next){
-  try{
-  let token = req.headers.auth
-  const user = await User.findByToken(token)
-  if (user.isAdmin){
-  console.log('User is an admin, authentication complete')
-  next()
-  }
-  else{
-    console.log('not admin, access denied')
-  }}
-  catch(err){
-    console.log('not authenticated')
-    next(err)
+async function auth(req, res, next) {
+  try {
+    let token = req.headers.auth;
+    const user = await User.findByToken(token);
+    if (user.isAdmin) {
+      console.log("User is an admin, authentication complete");
+      next();
+    } else {
+      console.log("not admin, access denied");
+    }
+  } catch (err) {
+    console.log("not authenticated");
+    next(err);
   }
 }
 const router = require("express").Router();
@@ -37,7 +36,6 @@ router.get("/", auth, async (req, res, next) => {
       });
       res.json(user[0]);
     } else {
-
       const users = await User.findAll({
         // explicitly select only the id and username fields - even though
         // users' passwords are encrypted, it won't help if we just
@@ -55,7 +53,7 @@ router.get("/:userId", auth, async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.findByPk(userId, {
-      attributes: ["username", "email", "isAdmin"],
+      attributes: ["id", "username", "email", "isAdmin"],
     });
 
     res.json(user);
@@ -74,7 +72,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:userId", async (req, res, next) => {
+router.put("/:userId", auth, async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const { username, password, email } = req.body;

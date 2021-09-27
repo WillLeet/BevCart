@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCart, updateQuantity, removeItemFromCart } from "../store/cart";
-import { fetchUserByName } from "../store/singleUser";
 import { fetchProduct } from "../store/singleProduct";
 import GuestCart from "./GuestCart";
+import { me } from "../store/auth";
 /**
  * COMPONENT
  */
@@ -21,7 +21,7 @@ class Cart extends Component {
   async componentDidMount() {
     if (window.localStorage.token) {
       try {
-        await this.props.loadUser(this.props.username);
+        await this.props.loadAuth();
       } catch (err) {
         console.error(err);
       }
@@ -56,15 +56,6 @@ class Cart extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    if (prevProps.username !== this.props.username) {
-      if (window.localStorage.token) {
-        try {
-          await this.props.loadUser(this.props.username);
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    }
     if (prevProps.user !== this.props.user) {
       if (window.localStorage.token && this.props.user.id) {
         try {
@@ -163,14 +154,13 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
-  username: state.auth.username,
-  user: state.user,
+  user: state.auth,
   product: state.product,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  loadAuth: () => dispatch(me()),
   loadCart: (userId) => dispatch(fetchCart(userId)),
-  loadUser: (username) => dispatch(fetchUserByName(username)),
   loadProduct: (productId) => dispatch(fetchProduct(productId)),
   updateQuantity: (product) => dispatch(updateQuantity(product)),
   removeProduct: (userId, productId) =>
