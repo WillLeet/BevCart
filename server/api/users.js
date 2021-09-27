@@ -1,9 +1,24 @@
+async function auth(req, res, next) {
+  try {
+    let token = req.headers.auth;
+    const user = await User.findByToken(token);
+    if (user.isAdmin) {
+      console.log("User is an admin, authentication complete");
+      next();
+    } else {
+      console.log("not admin, access denied");
+    }
+  } catch (err) {
+    console.log("not authenticated");
+    next(err);
+  }
+}
 const router = require("express").Router();
 const {
   models: { User },
 } = require("../db");
 
-router.get("/", async (req, res, next) => {
+router.get("/", auth, async (req, res, next) => {
   try {
     const { username } = await req.query;
     const { token } = await req.query;
@@ -34,11 +49,11 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:userId", async (req, res, next) => {
+router.get("/:userId", auth, async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.findByPk(userId, {
-      attributes: ["username", "email", "isAdmin"],
+      attributes: ["id", "username", "email", "isAdmin"],
     });
 
     res.json(user);
@@ -57,12 +72,12 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:userId", async (req, res, next) => {
+router.put("/:userId", auth, async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    const { username, password, email } = req.body;
+    const { username, password, email, isAdmin } = req.body;
     const user = await User.findByPk(userId);
-    res.json(await user.update({ username, password, email }));
+    res.json(await user.update({ username, password, email, isAdmin }));
   } catch (error) {
     next(error);
   }
