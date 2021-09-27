@@ -16,7 +16,7 @@ router.post("/:orderId/:productId", async (req, res, next) => {
     if (product) {
       res.json(await product.update({ quantity: product.quantity + quantity }));
     } else {
-      res.json(await ProductInOrder.create({ userId, productId, quantity }));
+      res.json(await ProductInOrder.create({ orderId, productId, quantity }));
     }
   } catch (error) {
     next(error);

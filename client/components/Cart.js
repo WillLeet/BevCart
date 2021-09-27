@@ -21,13 +21,11 @@ class Cart extends Component {
     if (window.localStorage.token) {
       try {
         await this.props.loadAuth();
-        console.log("in componentdidmount, user is: ",this.props.user);
         if(this.props.user.id){
         await this.props.loadCart(this.props.user.id);
         console.log(this.props.order);
         this.updateState();
         }
-        console.log("mounted!")
       } catch (err) {
         console.error(err);
       }
@@ -67,7 +65,6 @@ class Cart extends Component {
     if (prevProps.user !== this.props.user) {
       if (window.localStorage.token && this.props.user.id) {
         try {
-          console.log("incomponentdidupate",this.props.user);
           await this.props.loadCart(this.props.user.id);
           if(this.props.order.orderedproducts){this.setState({products: this.props.order.orderedproducts})}
         } catch (err) {
@@ -89,7 +86,6 @@ class Cart extends Component {
 
   render() {
     const user = this.props.user;
-    console.log("in the render, products is",this.state.products);
     const productsInCart = this.state.products;
     const total = productsInCart.reduce((acc, orderedproduct) => {
       console.log(orderedproduct);
