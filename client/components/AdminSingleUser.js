@@ -47,10 +47,7 @@ export class SingleUser extends React.Component {
       <div id="single-user">
         <div id="single-user-details">
           <div id="single-user-name">Name: {user.username}</div>
-          <div id="single-user-email">
-            Email:
-            {user.email}
-          </div>
+          <div id="single-user-email">Email: {user.email}</div>
           <div id="single-user-isAdmin">
             isAdmin: {user.isAdmin ? "true" : "false"}
           </div>

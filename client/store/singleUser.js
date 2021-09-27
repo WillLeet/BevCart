@@ -57,7 +57,12 @@ export const fetchUserByToken = (token) => {
 export const fetchUser = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/users/${userId}`);
+      const token = window.localStorage.getItem("token");
+      const { data } = await axios.get(`/api/users/${userId}`, {
+        headers: {
+          auth: token,
+        },
+      });
       return dispatch(setUser(data));
     } catch (error) {
       console.error(error);
@@ -68,7 +73,16 @@ export const fetchUser = (userId) => {
 export const updateUser = (user) => {
   return async (dipatch) => {
     try {
-      const { data } = await axios.put(`/api/users/${user.id}`, user);
+      const token = window.localStorage.token;
+      const { data } = await axios.put(
+        `/api/users/${user.id}`,
+        {
+          headers: {
+            auth: token,
+          },
+        },
+        user
+      );
       return dispatch(editUser(data));
     } catch (error) {
       console.error(error);
