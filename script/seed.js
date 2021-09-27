@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Product, Review, ProductInCart },
+  models: { User, Product, Review, ProductInCart, Order, ProductInOrder },
 } = require("../server/db");
 
 /**
@@ -13,29 +13,29 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
   // Creating Users
-  const users = await Promise.all([
-    User.create({
+  const users = [
+    await User.create({
       username: "cody",
       password: "123",
       email: "cody.123@gmail.com",
     }),
-    User.create({
+    await User.create({
       username: "murphy",
       password: "123",
       email: "IAMTHELAW@icloud.com",
     }),
-    User.create({
+    await User.create({
       username: "emma",
       password: "123",
       email: "outoffakeemails@oops.edu",
     }),
-    User.create({
+    await User.create({
       username: "admin",
       password: "123",
       email: "admin@devcart.org",
       isAdmin: true
     }),
-  ]);
+  ];
 
   //console.log(`seeded ${users.length} users`);
 
@@ -116,7 +116,7 @@ async function seed() {
 
   //console.log(`seeded ${reviews.length} reviews`)
 
-  const exampleCart = await Promise.all([
+  const exampleCarts = await Promise.all([
     ProductInCart.create({ userId: 1, productId: 2, quantity: 6 }),
     ProductInCart.create({ userId: 1, productId: 1, quantity: 1 }),
     ProductInCart.create({ userId: 1, productId: 4, quantity: 2 }),
@@ -125,6 +125,19 @@ async function seed() {
     ProductInCart.create({ userId: 2, productId: 3, quantity: 6 }),
     ProductInCart.create({ userId: 3, productId: 4, quantity: 6 }),
     ProductInCart.create({ userId: 4, productId: 4, quantity: 6 }),
+  ]);
+
+  const exampleOrders = [
+    await Order.create({ userId: 1, isCurrent: true}),
+    await Order.create({ userId: 2, isCurrent: true}),
+    await Order.create({ userId: 3, isCurrent: true}),
+    await Order.create({ userId: 4, isCurrent: true})
+  ];
+
+  const orderedProducts = await Promise.all([
+    ProductInOrder.create({ orderId: 1, productId: 2, quantity: 6 }),
+    ProductInCart.create({ orderId: 1, productId: 1, quantity: 1 }),
+    ProductInCart.create({ orderId: 1, productId: 4, quantity: 2 }),
   ]);
 
   //console.log("user 1 cart generated")

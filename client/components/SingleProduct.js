@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/singleProduct";
-import { fetchCart, addItemToCart, updateQuantity } from "../store/cart";
+import {addItemToCart, updateQuantity } from "../store/cart";
+import { fetchCurrentOrder } from "../store/order";
 import { Link } from "react-router-dom";
 import EditProduct from "./EditProduct";
 
@@ -33,9 +34,9 @@ export class SingleProduct extends React.Component {
 
   addToCart(productId) {
     if (this.props.user.id) {
-      const arrayOfIds = this.props.cart.map((product) => product.productId);
+      const arrayOfIds = this.props.order.orderedproducts.map((product) => product.productId);
       if (arrayOfIds.includes(productId)) {
-        const item = this.props.cart.filter(
+        const item = this.props.order.orderedproducts.filter(
           (item) => item.productId === productId
         )[0];
         item.quantity += 1;
@@ -43,7 +44,7 @@ export class SingleProduct extends React.Component {
       } else {
         const item = {
           id: productId,
-          userId: this.props.user.id,
+          orderId: this.props.order.id,
           quantity: 1,
         };
         this.props.addItemToCart(item);
@@ -103,7 +104,7 @@ const mapState = (state) => {
   return {
     product: state.product,
     user: state.auth,
-    cart: state.cart,
+    order: state.order,
   };
 };
 
@@ -113,7 +114,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchProduct(id));
     },
     fetchCart: (userId) => {
-      dispatch(fetchCart(userId));
+      dispatch(fetchCurrentOrder(userId));
     },
     addItemToCart: (item) => {
       dispatch(addItemToCart(item));
