@@ -41,7 +41,9 @@ const addUser = (user) => ({
 export const fetchUsers = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("/api/users");
+      const token = window.localStorage.getItem('token')
+      const { data } = await axios.get(`/api/users`, {headers:{
+        auth: token}});
       return dispatch(setUsers(data));
     } catch (error) {
       console.error(error);
