@@ -56,6 +56,7 @@ export const fetchCurrentOrder = (userId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/order/${userId}`);
+      console.log("In the thunk, data is",data);
       dispatch(setCurrentOrder(data));
     } catch (err) {
       console.error(err);

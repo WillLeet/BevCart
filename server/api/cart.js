@@ -1,44 +1,34 @@
 const router = require("express").Router();
 const {
-  models: { ProductInCart },
+  models: { ProductInOrder},
 } = require("../db");
+const Product = require("../db/models/Product");
 
-//No "/" get should be necessary - don't think we'll ever need to get everybody's carts
 
-router.get("/:userId", async (req, res, next) => {
+router.post("/:orderId/:productId", async (req, res, next) => {
   try {
-    const userId = req.params.userId;
-    const cart = await ProductInCart.findAll({ where: { userId: userId } });
-    res.json(cart);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.post("/:userId/:productId", async (req, res, next) => {
-  try {
-    const userId = parseInt(req.params.userId);
+    const orderId = parseInt(req.params.orderId);
     const productId = parseInt(req.params.productId);
     const { quantity } = req.body;
-    const product = await ProductInCart.findOne({
-      where: { userId: userId, productId: productId },
+    const product = await ProductInOrder.findOne({
+      where: { orderId,productId },
     });
     if (product) {
       res.json(await product.update({ quantity: product.quantity + quantity }));
     } else {
-      res.json(await ProductInCart.create({ userId, productId, quantity }));
+      res.json(await ProductInOrder.create({ userId, productId, quantity }));
     }
   } catch (error) {
     next(error);
   }
 });
 
-router.delete("/:userId/:productId/", async (req, res, next) => {
+router.delete("/:orderId/:productId/", async (req, res, next) => {
   try {
-    const userId = parseInt(req.params.userId);
+    const orderId = parseInt(req.params.orderId);
     const productId = parseInt(req.params.productId);
-    const product = await ProductInCart.findOne({
-      where: { userId: userId, productId: productId },
+    const product = await ProductInOrder.findOne({
+      where: { orderId: orderId, productId: productId },
     });
     await product.destroy();
     res.status(203).json(product);
@@ -47,13 +37,13 @@ router.delete("/:userId/:productId/", async (req, res, next) => {
   }
 });
 
-router.put("/:userId/:productId/", async (req, res, next) => {
+router.put("/:orderId/:productId/", async (req, res, next) => {
   try {
     const { quantity } = req.body;
-    const userId = req.params.userId;
+    const orderId = req.params.orderId;
     const productId = req.params.productId;
-    const product = await ProductInCart.findOne({
-      where: { userId: userId, productId: productId },
+    const product = await ProductInOrder.findOne({
+      where: { orderId: orderId, productId: productId },
     });
     res.json(await product.update({ quantity }));
   } catch (error) {

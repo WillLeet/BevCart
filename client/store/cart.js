@@ -33,31 +33,20 @@ const updatedQuantity = (item) => {
   };
 };
 
-export const fetchCart = (userId) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(`/api/cart/${userId}`);
-      dispatch(setCart(data));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-};
-
 export const addItemToCart = (item) => {
   return async (dispatch) => {
     const { data: added } = await axios.post(
-      `/api/cart/${item.userId}/${item.id}`,
+      `/api/cart/${item.orderId}/${item.id}`,
       item
     );
     dispatch(addedItem(added));
   };
 };
 
-export const removeItemFromCart = (userId, productId) => {
+export const removeItemFromCart = (orderId, productId) => {
   return async (dispatch) => {
     const { data: removed } = await axios.delete(
-      `/api/cart/${userId}/${productId}`
+      `/api/cart/${orderId}/${productId}`
     );
     dispatch(removedItem(removed));
   };
@@ -65,8 +54,9 @@ export const removeItemFromCart = (userId, productId) => {
 
 export const updateQuantity = (item) => {
   return async (dispatch) => {
+    console.log("in the store, item is",item);
     const { data: updated } = await axios.put(
-      `/api/cart/${item.userId}/${item.productId}`,
+      `/api/cart/${item.orderId}/${item.productId}`,
       item
     );
     dispatch(updatedQuantity(updated));

@@ -13,6 +13,7 @@ router.get("/:userId/", async (req, res, next) => {
     const order = await Order.findOne({where: { userId: userId, isCurrent: true},   
         include: {model: ProductInOrder, as: "orderedproducts", include: {model: Product, as: "product"}}
     });
+    console.log("In the route, data is",order);
     res.json(order);
   } catch (error) {
     next(error);
@@ -36,7 +37,7 @@ router.get("/:userId/history", async (req, res, next) => {
       const userId = req.params.userId;
       const orderId = req.params.orderId
       const order = await Order.findOne({where: { userId: userId, orderId: orderId},   
-          include: {model: ProductInOrder, as: "ordered", include: {model: Product, as: "product"}}
+          include: {model: ProductInOrder, as: "orderedproducts", include: {model: Product, as: "product"}}
       });
       res.json(order);
     } catch (error) {
@@ -50,9 +51,20 @@ router.post("/:userId/", async (req, res, next) => {
     const order = await Order.findOne({where: { userId: userId, isCurrent: true} });
     await order.update({isCurrent: false, datePlaced: Date.now()})
     await Order.create({userId})
+    res.json(order);
   } catch (error) {
     next(error);
   }
 });
+
+router.post("/:userId/new", async (req, res, next) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const order = await Order.create({userId})
+      res.json(order);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 module.exports = router;

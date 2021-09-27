@@ -28,13 +28,13 @@ router.get("/", auth, async (req, res, next) => {
       return;
     }
     if (username) {
-      const user = await User.findAll({
+      const user = await User.findOne({
         where: {
           username: username,
         },
         attributes: ["id", "username", "email", "isAdmin"],
       });
-      res.json(user[0]);
+      res.json(user);
     } else {
       const users = await User.findAll({
         // explicitly select only the id and username fields - even though
