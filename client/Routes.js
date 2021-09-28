@@ -9,7 +9,8 @@ import Cart from "./components/Cart";
 import Home from "./components/Home";
 import { me } from "./store";
 import AdminSingleUser from "./components/AdminSingleUser";
-import Payment from "./components/Payment"
+import Payment from "./components/Payment";
+import "bootstrap/dist/css/bootstrap.css";
 
 /**
  * COMPONENT
@@ -24,7 +25,9 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route exact path="/"><Redirect to="/home" /></Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
             <Route path="/home" component={Home} />
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products" component={AllProducts} />
