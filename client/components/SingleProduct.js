@@ -26,7 +26,7 @@ export class SingleProduct extends React.Component {
   }
 
   notify(name) {
-    toast.success(`${name} added to the cart!`);
+    toast(`${name} added to the cart!`);
   }
 
   async componentDidUpdate(prevProps) {
@@ -83,7 +83,7 @@ export class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.product;
-    if (product) {
+    if (product.name) {
       return (
         <div id="single-product">
           <div id="single-product-image">

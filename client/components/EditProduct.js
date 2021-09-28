@@ -41,7 +41,7 @@ class EditProduct extends Component {
     const { name, description, price } = this.state;
     const isAdmin = this.props.isAdmin;
     return isAdmin ? (
-      this.props.product ? (
+      name.length ? (
         <div>
           <form onSubmit={this.handleSubmit}>
             <input name="name" onChange={this.handleChange} value={name} />

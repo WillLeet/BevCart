@@ -22,7 +22,7 @@ export class AllProducts extends React.Component {
     }
   }
   render() {
-    if (this.props.products) {
+    if (this.props.products.length) {
       return (
         <div>
           {this.props.isAdmin ? <NewProduct /> : null}

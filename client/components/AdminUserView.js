@@ -18,7 +18,7 @@ export class AdminUserView extends React.Component {
     }
   }
   render() {
-    if (this.props.users) {
+    if (this.props.users.length) {
       return (
         <div>
           <div id="user-list">
