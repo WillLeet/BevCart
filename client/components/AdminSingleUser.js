@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchUser, updateUser } from "../store/singleUser";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export class SingleUser extends React.Component {
   constructor(props) {
@@ -48,34 +49,44 @@ export class SingleUser extends React.Component {
 
   render() {
     const user = this.state;
-    console.log(user);
-    return (
-      <div id="single">
-        <form onSubmit={this.handleSubmit}>
-          <div id="single-user-details">
-            <input
-              name="username"
-              onChange={this.handleChange}
-              value={user.username}
-            />
-            <input
-              name="email"
-              onChange={this.handleChange}
-              value={user.email}
-            />
-            <select
-              name="isAdmin"
-              value={user.isAdmin}
-              onChange={this.handleChange}
-            >
-              <option value="true">admin</option>
-              <option value="false">user</option>
-            </select>
-          </div>
-          <button>Submit Changes</button>
-        </form>
-      </div>
-    );
+    if (user) {
+      return (
+        <div id="single">
+          <form onSubmit={this.handleSubmit}>
+            <div id="single-user-details">
+              <input
+                name="username"
+                onChange={this.handleChange}
+                value={user.username}
+              />
+              <input
+                name="email"
+                onChange={this.handleChange}
+                value={user.email}
+              />
+              <select
+                name="isAdmin"
+                value={user.isAdmin}
+                onChange={this.handleChange}
+              >
+                <option value="true">admin</option>
+                <option value="false">user</option>
+              </select>
+            </div>
+            <button>Submit Changes</button>
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <ClipLoader
+          color="aqua"
+          size={150}
+          loading={true}
+          speedMultiplier={1.5}
+        />
+      );
+    }
   }
 }
 
