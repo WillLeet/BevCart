@@ -42,6 +42,7 @@ nav.nav-right {
 }
 .nav-options{
   color: #050505;
+  text-decoration: none;
 }
 
 .nav-left{
@@ -54,6 +55,7 @@ nav.nav-right {
   font-size: 36px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #050505;
+  text-decoration: none;
 }
 
 .nav-left {
@@ -222,4 +224,9 @@ nav.nav-right {
 
 #home-image{
   width: 80%;
+}
+
+#logouttag{
+  color: #050505;
+  text-decoration: none;
 }
