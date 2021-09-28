@@ -101,7 +101,7 @@ class Cart extends Component {
         </>
       );
     } else {
-      return user && productsInCart ? (
+      return user || productsInCart ? (
         <>
           <h1>{user.username}'s Cart</h1>
           <div id="cart" className="flex-box">

@@ -49,7 +49,7 @@ export class SingleUser extends React.Component {
 
   render() {
     const user = this.state;
-    if (user) {
+    if (user.username.length) {
       return (
         <div id="single">
           <form onSubmit={this.handleSubmit}>
