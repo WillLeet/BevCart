@@ -56,8 +56,8 @@ nav.nav-right {
 }
 
 #card {
-  height: 300px;
-  width: 175px;
+  height: 330px;
+  width: 210px;
   margin: 5px;
   background-color: #f5f1e3;
   display: flex;
@@ -91,17 +91,38 @@ nav.nav-right {
   align-self: center;
 }
 
-.product-content-card {
+.product-title-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   align-self: center;
   margin: 2px;
-  white-space: nowrap;
   word-wrap: normal;
-  width: 80%;
+  font-size: medium;
+  width: 90%;
+  height: 15%;
+  overflow: hidden;
+  overflow-wrap: normal;
+  text-overflow: ellipsis;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.product-content-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin: 2px;
+  word-wrap: normal;
+  font-size: medium;
+  width: 90%;
   height: 20%;
   overflow: hidden;
   overflow-wrap: normal;
   text-overflow: ellipsis;
   text-align: center;
+  flex-grow: 2;
 }
 
 .product-price-card {

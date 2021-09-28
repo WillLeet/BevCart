@@ -31,7 +31,7 @@ export class AllProducts extends React.Component {
               <div id="card" key={product.id}>
                 <img id="product-image-card" src={product.imageUrl} />
                 <Link
-                  className="product-content-card"
+                  className="product-title-card"
                   to={`/products/${product.id}`}
                 >
                   {product.name} <br />{" "}
