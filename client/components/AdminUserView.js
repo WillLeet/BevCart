@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchUsers, deleteUser } from "../store/users";
 import { Link } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export class AdminUserView extends React.Component {
   constructor(props) {
@@ -17,21 +18,36 @@ export class AdminUserView extends React.Component {
     }
   }
   render() {
-    return (
-      <div>
-        <div id="user-list">
-          {this.props.users.map((user) => (
+    if (this.props.users) {
+      return (
+        <div>
+          <div id="user-list">
+            {this.props.users.map((user) => (
               <div id="user-card">
-                <p><Link key={user.id} to={`/admin/users/${user.id}`}>{user.username}</Link></p>
+                <p>
+                  <Link key={user.id} to={`/admin/users/${user.id}`}>
+                    {user.username}
+                  </Link>
+                </p>
                 <p>{user.email}</p>
                 <button onClick={() => this.props.deleteUser(user.id)}>
                   Delete User
                 </button>
               </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <ClipLoader
+          color="aqua"
+          size={150}
+          loading={true}
+          speedMultiplier={1.5}
+        />
+      );
+    }
   }
 }
 

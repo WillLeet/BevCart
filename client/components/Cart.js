@@ -5,6 +5,7 @@ import { fetchCurrentOrder } from "../store/order";
 import { fetchProduct } from "../store/singleProduct";
 import GuestCart from "./GuestCart";
 import { me } from "../store/auth";
+import ClipLoader from "react-spinners/ClipLoader";
 /**
  * COMPONENT
  */
@@ -21,10 +22,10 @@ class Cart extends Component {
     if (window.localStorage.token) {
       try {
         await this.props.loadAuth();
-        if(this.props.user.id){
-        await this.props.loadCart(this.props.user.id);
-        console.log(this.props.order);
-        this.updateState();
+        if (this.props.user.id) {
+          await this.props.loadCart(this.props.user.id);
+          console.log(this.props.order);
+          this.updateState();
         }
       } catch (err) {
         console.error(err);
@@ -66,7 +67,9 @@ class Cart extends Component {
       if (window.localStorage.token && this.props.user.id) {
         try {
           await this.props.loadCart(this.props.user.id);
-          if(this.props.order.orderedproducts){this.setState({products: this.props.order.orderedproducts})}
+          if (this.props.order.orderedproducts) {
+            this.setState({ products: this.props.order.orderedproducts });
+          }
         } catch (err) {
           console.error(err);
         }
@@ -74,15 +77,13 @@ class Cart extends Component {
     }
   }
 
-
   async updateState() {
     try {
-      this.setState({products: this.props.order.orderedproducts});
+      this.setState({ products: this.props.order.orderedproducts });
     } catch (err) {
       console.error(err);
     }
   }
-
 
   render() {
     const user = this.props.user;
@@ -100,7 +101,7 @@ class Cart extends Component {
         </>
       );
     } else {
-      return (
+      return user && productsInCart ? (
         <>
           <h1>{user.username}'s Cart</h1>
           <div id="cart" className="flex-box">
@@ -128,7 +129,7 @@ class Cart extends Component {
                     onClick={async () => {
                       item.quantity -= 1;
                       if (item.quantity === 0) {
-                         await this.props.removeProduct(
+                        await this.props.removeProduct(
                           item.orderId,
                           item.productId
                         );
@@ -144,7 +145,7 @@ class Cart extends Component {
                   <button
                     type="button"
                     onClick={async () => {
-                       await this.props.removeProduct(
+                      await this.props.removeProduct(
                         item.orderId,
                         item.productId
                       );
@@ -159,8 +160,17 @@ class Cart extends Component {
             })}
           </div>
           <h1>Total: ${total.toFixed(2)}</h1>
-          <button onClick={()=>this.props.history.push('/payment')}>Checkout</button>
+          <button onClick={() => this.props.history.push("/payment")}>
+            Checkout
+          </button>
         </>
+      ) : (
+        <ClipLoader
+          color="aqua"
+          size={150}
+          loading={true}
+          speedMultiplier={1.5}
+        />
       );
     }
   }
