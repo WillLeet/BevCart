@@ -4,7 +4,7 @@ const {
   db,
   models: { User, Product, Review, ProductInCart, Order, ProductInOrder },
 } = require("../server/db");
-
+const faker = require("faker");
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -33,13 +33,13 @@ async function seed() {
       username: "admin",
       password: "123",
       email: "admin@devcart.org",
-      isAdmin: true
+      isAdmin: true,
     }),
   ];
 
   //console.log(`seeded ${users.length} users`);
 
-  const products = await Promise.all([
+  let _products = [
     Product.create({
       name: "Dr Pepper",
       price: 1.05,
@@ -57,7 +57,7 @@ async function seed() {
     }),
     Product.create({
       name: "Mystery Drink",
-      price: 8.00,
+      price: 8.0,
       description:
         "Bedazzle your pallette with our beverage scientists' choice selection for the week!",
     }),
@@ -75,7 +75,21 @@ async function seed() {
       imageUrl:
         "https://ipcdn.freshop.com/resize?url=https://images.freshop.com/00041505812033/16d59e5810daa3576ba63b9df6a07eef_large.png&width=256&type=webp&quality=80",
     }),
-  ]);
+  ];
+
+  for (let i = 0; i < 100; ++i) {
+    let imageUrl = `${faker.image.nature()}?random=${Math.random()}`;
+    console.log(faker.image.imageUrl());
+    let product = Product.create({
+      name: faker.name.title(),
+      price: faker.commerce.price(),
+      description: faker.commerce.productDescription(),
+      imageUrl,
+    });
+    _products.push(product);
+  }
+
+  const products = await Promise.all(_products);
 
   //console.log(`seeded ${products.length} products`);
 
@@ -128,10 +142,10 @@ async function seed() {
   ]);
 
   const exampleOrders = [
-    await Order.create({ userId: 1, isCurrent: true}),
-    await Order.create({ userId: 2, isCurrent: true}),
-    await Order.create({ userId: 3, isCurrent: true}),
-    await Order.create({ userId: 4, isCurrent: true})
+    await Order.create({ userId: 1, isCurrent: true }),
+    await Order.create({ userId: 2, isCurrent: true }),
+    await Order.create({ userId: 3, isCurrent: true }),
+    await Order.create({ userId: 4, isCurrent: true }),
   ];
 
   const orderedProducts = await Promise.all([
