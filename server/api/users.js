@@ -1,9 +1,15 @@
 async function auth(req, res, next) {
   try {
-    let token = req.headers.auth;
+    const token = req.headers.auth;
+    const query = await req.query;
+    const token2 = query.token;
     const user = await User.findByToken(token);
+    const user2 = (token2 ? await User.findByToken(token2) : null);
     if (user.isAdmin) {
       console.log("User is an admin, authentication complete");
+      next();
+    } else if (user.id === user2.id) {
+      console.log("User accessing their own info, this is fine");
       next();
     } else {
       console.log("not admin, access denied");

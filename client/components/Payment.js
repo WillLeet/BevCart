@@ -1,10 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom"
+import { sendOrder } from "../store/order";
+import { fetchUserByToken } from "../store/singleUser";
 
-const PaymentInfo = (props) =>{
-    const handleSubmit = (evt)=>{
+const PaymentInfo = (props) => {
+    const handleSubmit = async (evt)=>{
       evt.preventDefault()
+      if (window.localStorage.token) {
+        const user = await props.fetchUserByToken(window.localStorage.token);
+        console.log(user);
+        await props.sendOrder(user.user.id);
+        console.log("Sending the forms");
+      } else {
+        console.log("Clearing the guest cart");
+      }
       props.history.push('/home')
     }
 
@@ -36,4 +46,11 @@ const PaymentInfo = (props) =>{
     );
   }
 
-export default PaymentInfo
+  const mapDispatch = (dispatch) => {
+    return {
+      sendOrder: (id) => dispatch(sendOrder(id)),
+      fetchUserByToken: (token) => dispatch(fetchUserByToken(token)),
+    };
+  };
+  
+  export default connect(null, mapDispatch)(PaymentInfo);

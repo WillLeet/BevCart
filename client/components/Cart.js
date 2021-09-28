@@ -68,7 +68,7 @@ class Cart extends Component {
         try {
           await this.props.loadCart(this.props.user.id);
           if (this.props.order.orderedproducts) {
-            this.setState({ products: this.props.order.orderedproducts });
+            this.setState({ products: this.props.order[0].orderedproducts });
           }
         } catch (err) {
           console.error(err);
@@ -79,7 +79,7 @@ class Cart extends Component {
 
   async updateState() {
     try {
-      this.setState({ products: this.props.order.orderedproducts });
+      this.setState({ products: this.props.order[0].orderedproducts });
     } catch (err) {
       console.error(err);
     }

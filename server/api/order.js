@@ -13,7 +13,6 @@ router.get("/:userId/", async (req, res, next) => {
     const order = await Order.findOne({where: { userId: userId, isCurrent: true},   
         include: {model: ProductInOrder, as: "orderedproducts", include: {model: Product, as: "product"}}
     });
-    console.log("In the route, data is",order);
     res.json(order);
   } catch (error) {
     next(error);
