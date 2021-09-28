@@ -46,7 +46,7 @@ export const fetchUserByName = (username) => {
 export const fetchUserByToken = (token) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/users/?token=${token}`);
+      const { data } = await axios.get(`/api/users/?token=${token}`,{headers:{auth: token}});
       return dispatch(setUser(data));
     } catch (error) {
       console.error(error);

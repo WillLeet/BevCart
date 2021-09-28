@@ -125,7 +125,7 @@ const mapState = (state) => {
   return {
     product: state.product,
     user: state.auth,
-    order: state.order,
+    order: state.order[0],
   };
 };
 

@@ -79,6 +79,8 @@ export const sendOrder = (userId) => {
   return async (dispatch) => {
     const { data: oldCurrent } = await axios.post(`/api/order/${userId}`);
     const {data: newCurrent } = await axios.get(`/api/order/${userId}`);
+    console.log("oldCurrent is ",oldCurrent);
+    console.log("newCurrent is ",newCurrent);
     dispatch(sentOrder({oldCurrent, newCurrent}))
   };
 };
@@ -90,18 +92,21 @@ export const initializeOrder = (userId) => {
     };
   };
 
-export default function orderReducer(orders = [], action) {
+export default function orderReducer(state = [], action) {
   switch (action.type) {
     case SET_ORDER:
-        return action.order;
+        return [action.order];
     case SET_ORDER_HISTORY:
         return action.orders;
     case SET_CURRENT_ORDER:
-        return action.order;
+        return [action.order];
     case SEND_ORDER:
-        return [...orders, action.newCurrent].map(order => (order.id === action.order.id ? action.order : order))
+        console.log("State is ",state);
+        const tomap = [...state, action.orders.newCurrent]
+        console.log("Tomap is ",tomap);
+        return tomap.map(order => (order.id === action.orders.oldCurrent.id ? action.orders.oldCurrent : order))
     default:
-      return orders;
+      return state;
   }
 }
 
