@@ -79,7 +79,6 @@ async function seed() {
 
   for (let i = 0; i < 100; ++i) {
     let imageUrl = `${faker.image.nature()}?random=${Math.random()}`;
-    console.log(faker.image.imageUrl());
     let product = Product.create({
       name: faker.name.title(),
       price: faker.commerce.price(),

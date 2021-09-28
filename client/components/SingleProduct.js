@@ -8,6 +8,7 @@ import EditProduct from "./EditProduct";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ClipLoader from "react-spinners/ClipLoader";
+import { initializeOrder } from "../store/order";
 
 // Notice that we're exporting the SingleProduct component twice. The named export
 // (below) is not connected to Redux, while the default export (at the very
@@ -20,6 +21,7 @@ export class SingleProduct extends React.Component {
   async componentDidMount() {
     try {
       await this.props.fetchProduct(this.props.match.params.id);
+      await this.props.fetchCart(this.props.user.id);
     } catch (err) {
       console.error(err);
     }
@@ -142,6 +144,9 @@ const mapDispatch = (dispatch) => {
     },
     updateQuantity: (item) => {
       dispatch(updateQuantity(item));
+    },
+    initializeOrder: (userId) => {
+      dispatch(initializeOrder(userId));
     },
   };
 };
