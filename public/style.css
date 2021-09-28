@@ -113,6 +113,7 @@ nav.nav-right {
   font-size: medium;
   width: 90%;
   height: 15%;
+  max-height: 50px;
   overflow: hidden;
   overflow-wrap: normal;
   text-overflow: ellipsis;
@@ -120,26 +121,31 @@ nav.nav-right {
   flex-grow: 1;
 }
 
-.product-content-card {
+.content-wrapper {
   display: flex;
+  flex: 1;
+  min-height: 0px;
+  max-height: 110px;
+  overflow: scroll;
+}
+
+.product-content-card {
   align-items: center;
   justify-content: center;
   align-self: center;
-  margin: 2px;
+  margin: 5px;
+  padding: 5px;
   word-wrap: normal;
-  font-size: medium;
+  font-size: 11pt;
   width: 90%;
-  height: 20%;
-  overflow: hidden;
+  height: 100%;
   overflow-wrap: normal;
-  text-overflow: ellipsis;
   text-align: center;
-  flex-grow: 2;
 }
 
 .product-price-card {
   align-self: center;
-  margin: 2px;
+  margin: 5px;
 }
 
 #single-product {
