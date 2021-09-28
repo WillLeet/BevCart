@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
 import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 
 /**
  * COMPONENT
@@ -10,33 +11,41 @@ import { Redirect } from "react-router-dom";
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
+  const notify = (data) => {
+    toast.warning(data);
+  };
+
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="username">
-            <small>Username</small>
+    <div className="row">
+      <form onSubmit={handleSubmit} name={name} className="form-inline">
+        <div className="form-group mx-sm-3 mb-2">
+          <label htmlFor="username" className="sr-only">
+            <small>Username:</small>
           </label>
           <input name="username" type="text" />
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
+        <div className="form-group mx-sm-3 mb-2">
+          <label htmlFor="password" className="sr-only">
+            <small>Password:</small>
           </label>
           <input name="password" type="password" />
         </div>
-        {(displayName==="Sign Up")?(
+        {displayName === "Sign Up" ? (
+          <div className="form-group mx-sm-3 mb-2">
+            <label htmlFor="email" className="sr-only">
+              <small>email:</small>
+            </label>
+            <input name="email" type="email" />
+          </div>
+        ) : null}
         <div>
-          <label htmlFor="email">
-            <small>email</small>
-          </label>
-          <input name="email" type="email" />
+          <button type="submit" className="btn btn-primary mb-2">
+            {displayName}
+          </button>
         </div>
-        ):(null)}
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        {error &&
+          error.response && <div> {error.response.data} </div> &&
+          notify(error.response.data)}
       </form>
     </div>
   );
@@ -72,11 +81,11 @@ const mapDispatch = (dispatch, { history }) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      const email = evt.target.email?(evt.target.email.value):(null)
-      const authenticateStatement = (email?([formName,username, password, email]):([formName, username,password]))
-      console.log(...authenticateStatement)
+      const email = evt.target.email ? evt.target.email.value : null;
+      const authenticateStatement = email
+        ? [formName, username, password, email]
+        : [formName, username, password];
       await dispatch(authenticate(authenticateStatement));
-      history.push("/home");
     },
   };
 };

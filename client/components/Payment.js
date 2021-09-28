@@ -34,13 +34,33 @@ const PaymentInfo = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-inline">
       <div>
-        <input type="text" name="Card number" placeholder="Card number..." />
-        <input type="text" name="Expiration" placeholder="Expiration..." />
-        <input type="text" name="CVV" placeholder="CVV..." />
+        <input
+          type="text"
+          name="Card number"
+          placeholder="Card number..."
+          className="form-group mx-sm-3 mb-2"
+        />
+        <input
+          type="text"
+          name="Expiration"
+          placeholder="Expiration..."
+          className="form-group mx-sm-3 mb-2"
+        />
+        <input
+          type="text"
+          name="CVV"
+          placeholder="CVV..."
+          className="form-group mx-sm-3 mb-2"
+        />
         <span>
-          <button to="home" type="submit" onClick={notify}>
+          <button
+            to="home"
+            type="submit"
+            onClick={notify}
+            className="btn btn-primary mb-2"
+          >
             Submit
           </button>
         </span>

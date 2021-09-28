@@ -89,16 +89,24 @@ export class SingleProduct extends React.Component {
       return (
         <div id="single-product">
           <div id="single-product-image">
-            <img src={product.imageUrl} />
+            <img src={product.imageUrl} className="rounded mx-auto d-block" />
           </div>
           <div id="single-product-details">
-            <div id="single-product-title">Name: {product.name}</div>
-            <div id="single-product-description">
+            <div id="single-product-title" className="text-single-product">
+              Name: {product.name}
+            </div>
+            <div
+              id="single-product-description"
+              className="text-single-product"
+            >
               Description:
               {product.description}
             </div>
-            <div id="single-product-price">Price: ${product.price}</div>
+            <div id="single-product-price" className="text-single-product">
+              Price: ${product.price}
+            </div>
             <button
+              className="btn btn-primary mb-2"
               onClick={() => {
                 this.notify(product.name);
                 return this.addToCart(product.id);

@@ -40,12 +40,12 @@ nav.nav-right {
   margin-right: 10px;
   flex-direction: row;
 }
-.nav-options{
+.nav-options {
   color: #050505;
   text-decoration: none;
 }
 
-.nav-left{
+.nav-left {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -212,21 +212,25 @@ nav.nav-right {
 }
 
 #homepage {
-  height:100vh;
+  height: 100vh;
   width: 100%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-size:contain;
+  background-size: contain;
   background-color: #f5f1e3;
 }
 
-#home-image{
+#home-image {
   height: 80%;
 }
 
-#logouttag{
+#logouttag {
   color: #050505;
   text-decoration: none;
+}
+
+.text-single-product {
+  font-family: "Gemunu Libre", sans-serif;
 }
