@@ -4,7 +4,7 @@ async function auth(req, res, next) {
     const query = await req.query;
     const token2 = query.token;
     const user = await User.findByToken(token);
-    const user2 = await User.findByToken(token2);
+    const user2 = (token2 ? await User.findByToken(token2) : null);
     if (user.isAdmin) {
       console.log("User is an admin, authentication complete");
       next();
