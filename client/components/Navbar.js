@@ -2,32 +2,37 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div id="navbar-div">
-    {console.log(isAdmin)}
     <div className="nav-left">
-      <h3 id="navbar-welcome">Welcome {isLoggedIn?(isAdmin?('Admin'):('User')):('')}</h3>
-    </div>
     <Link id="nav-company-name" to="/home">BevCart</Link>
+    </div>
+    <PacmanLoader
+          color={'#1B9AAA'}
+          size={15}
+          loading={true}
+          speedMultiplier={0.3}
+        />
     <nav className="nav-right">
     <div className = "nav-options">
       {isLoggedIn ? (isAdmin ? (
               <div>
-              <Link to="/products"> View products</Link>
-              <Link to="/admin/users"> View users</Link>
-              <a href="#" onClick={handleClick}>
+              <Link className="nav-options"to="/products"> View products</Link>
+              <Link className="nav-options"to="/admin/users"> View users</Link>
+              <a id="logouttag"href="#" onClick={handleClick}>
                 Logout
               </a>
               </div>
           ):(
-              <a href="#" onClick={handleClick}>
+              <a id="logouttag"href="#" onClick={handleClick}>
                 Logout
               </a>
       ) ): (
           <div className = "nav-right">
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+            <Link className="nav-options"to="/login">Login</Link>
+            <Link className="nav-options"to="/signup">Sign Up</Link>
             </div>
       )}
       </div>

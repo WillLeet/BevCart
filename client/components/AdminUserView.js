@@ -26,7 +26,7 @@ export class AdminUserView extends React.Component {
               <div id="user-card">
                 <p>
                   <Link key={user.id} to={`/admin/users/${user.id}`}>
-                    {user.username}
+                    {user.username} {user.isAdmin?('(admin)'):(null)}
                   </Link>
                 </p>
                 <p>{user.email}</p>

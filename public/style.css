@@ -40,10 +40,22 @@ nav.nav-right {
   margin-right: 10px;
   flex-direction: row;
 }
+.nav-options{
+  color: #050505;
+  text-decoration: none;
+}
+
+.nav-left{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
 
 #nav-company-name {
   font-size: 36px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #050505;
+  text-decoration: none;
 }
 
 .nav-left {
@@ -180,9 +192,6 @@ nav.nav-right {
   text-align: left;
 }
 
-#add-to-cart {
-}
-
 #user-card {
   height: 80px;
   width: 100%;
@@ -200,4 +209,24 @@ nav.nav-right {
   flex-direction: column;
   justify-content: center;
   align-content: flex-start;
+}
+
+#homepage {
+  height:100vh;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-size:contain;
+  background-color: #f5f1e3;
+}
+
+#home-image{
+  width: 80%;
+}
+
+#logouttag{
+  color: #050505;
+  text-decoration: none;
 }
