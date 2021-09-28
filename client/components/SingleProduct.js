@@ -41,7 +41,6 @@ export class SingleProduct extends React.Component {
 
   addToCart(productId) {
     if (this.props.user.id) {
-      console.log(this.props.order);
       const arrayOfIds = this.props.order.orderedproducts.map(
         (product) => product.productId
       );
