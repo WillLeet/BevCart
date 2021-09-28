@@ -120,7 +120,7 @@ class GuestCart extends Component {
           })}
         </div>
         <h1>Total: ${total.toFixed(2)}</h1>
-        <button>Checkout</button>
+        <button onClick={()=>this.props.history.push('/payment')}>Checkout</button>
       </>
     );
   }
