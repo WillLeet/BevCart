@@ -84,8 +84,10 @@ export class AllProducts extends React.Component {
                 >
                   {product.name} <br />{" "}
                 </Link>
+                <div className="content-wrapper">
                 <div className="product-content-card">
                   {product.description}
+                </div>
                 </div>
                 <div className="product-price-card">
                   Price: ${product.price}
