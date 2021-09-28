@@ -1,10 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/singleProduct";
-import {addItemToCart, updateQuantity } from "../store/cart";
+import { addItemToCart, updateQuantity } from "../store/cart";
 import { fetchCurrentOrder } from "../store/order";
 import { Link } from "react-router-dom";
 import EditProduct from "./EditProduct";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
 // Notice that we're exporting the SingleProduct component twice. The named export
 // (below) is not connected to Redux, while the default export (at the very
@@ -22,6 +25,10 @@ export class SingleProduct extends React.Component {
     }
   }
 
+  notify(name) {
+    toast.success(`${name} added to the cart!`);
+  }
+
   async componentDidUpdate(prevProps) {
     if (prevProps.user !== this.props.user) {
       try {
@@ -34,7 +41,9 @@ export class SingleProduct extends React.Component {
 
   addToCart(productId) {
     if (this.props.user.id) {
-      const arrayOfIds = this.props.order.orderedproducts.map((product) => product.productId);
+      const arrayOfIds = this.props.order.orderedproducts.map(
+        (product) => product.productId
+      );
       if (arrayOfIds.includes(productId)) {
         const item = this.props.order.orderedproducts.filter(
           (item) => item.productId === productId
@@ -74,29 +83,41 @@ export class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.product;
-    return (
-      <div id="single-product">
-        <div id="single-product-image">
-          <img src={product.imageUrl} />
-        </div>
-        <div id="single-product-details">
-          <div id="single-product-title">Name: {product.name}</div>
-          <div id="single-product-description">
-            Description:
-            {product.description}
+    if (product) {
+      return (
+        <div id="single-product">
+          <div id="single-product-image">
+            <img src={product.imageUrl} />
           </div>
-          <div id="single-product-price">Price: ${product.price}</div>
-          <button
-            onClick={() => {
-              return this.addToCart(product.id);
-            }}
-          >
-            ADD TO CART
-          </button>
-          <EditProduct />
+          <div id="single-product-details">
+            <div id="single-product-title">Name: {product.name}</div>
+            <div id="single-product-description">
+              Description:
+              {product.description}
+            </div>
+            <div id="single-product-price">Price: ${product.price}</div>
+            <button
+              onClick={() => {
+                this.notify(product.name);
+                return this.addToCart(product.id);
+              }}
+            >
+              ADD TO CART
+            </button>
+            <EditProduct />
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <ClipLoader
+          color="aqua"
+          size={150}
+          loading={true}
+          speedMultiplier={1.5}
+        />
+      );
+    }
   }
 }
 
