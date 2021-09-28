@@ -96,7 +96,7 @@ class Cart extends Component {
     if (!window.localStorage.token) {
       return (
         <>
-          <GuestCart />
+          <GuestCart history={this.props.history} />
         </>
       );
     } else {
@@ -159,7 +159,7 @@ class Cart extends Component {
             })}
           </div>
           <h1>Total: ${total.toFixed(2)}</h1>
-          <button>Checkout</button>
+          <button onClick={()=>this.props.history.push('/payment')}>Checkout</button>
         </>
       );
     }

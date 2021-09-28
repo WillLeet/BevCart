@@ -9,6 +9,7 @@ import Cart from "./components/Cart";
 import Home from "./components/Home";
 import { me } from "./store";
 import AdminSingleUser from "./components/AdminSingleUser";
+import Payment from "./components/Payment"
 
 /**
  * COMPONENT
@@ -19,7 +20,6 @@ class Routes extends Component {
   }
   render() {
     const { isLoggedIn } = this.props;
-    let isAdmin = true;
     return (
       <div>
         {isLoggedIn ? (
@@ -32,6 +32,7 @@ class Routes extends Component {
             isAdmin?(
             <Route exact path="/admin/users" component={AdminUserView} />
             <Route exact path="/admin/users/:id" component={AdminSingleUser} />)
+            <Route exact path="/payment" component={Payment} />
           </Switch>
         ) : (
           <Switch>
@@ -42,6 +43,7 @@ class Routes extends Component {
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/payment" component={Payment} />
           </Switch>
         )}
       </div>
