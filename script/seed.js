@@ -13,7 +13,7 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
   // Creating Users
-  const users = [
+  const _users = [
     await User.create({
       username: "cody",
       password: "123",
@@ -85,12 +85,18 @@ async function seed() {
       description: faker.commerce.productDescription(),
       imageUrl,
     });
-    let user = User.create({username: faker.name.findName(), password: faker.name.jobTitle+faker.name.lastName, email: faker.internet.email()})
+    let user = User.create({
+      username: faker.name.findName(),
+      password: faker.name.jobTitle + faker.name.lastName,
+      email: faker.internet.email(),
+    });
+
     _products.push(product);
-    users.push(user)
+    _users.push(user);
   }
 
   const products = await Promise.all(_products);
+  const users = await Promise.all(_users);
 
   //console.log(`seeded ${products.length} products`);
 
