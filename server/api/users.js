@@ -1,4 +1,4 @@
-async function auth(req, res, next) {
+const auth= async(req, res, next)=>{
   try {
     const token = req.headers.auth;
     const query = await req.query;

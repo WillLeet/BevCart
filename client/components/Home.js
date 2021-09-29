@@ -13,7 +13,7 @@ export const Home = (props) => {
       <h1>
         Welcome
         {username
-          ? " Back " + username + (isAdmin ? "(admin)" : null) + "!"
+          ? " back " + username + (isAdmin ? "(admin)" : '') + "!"
           : "!"}
       </h1>
       <Link to="/products">
