@@ -89,7 +89,7 @@ export class SingleProduct extends React.Component {
       return (
         <div id="single-product">
           <div id="single-product-image">
-            <img src={product.imageUrl} className="rounded mx-auto d-block" />
+            <img src={product.imageUrl} className="image-from-product" />
           </div>
           <div id="single-product-details">
             <div id="single-product-title" className="text-single-product">

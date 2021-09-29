@@ -103,13 +103,14 @@ class Cart extends Component {
     } else {
       return user || productsInCart ? (
         <>
+        <div id="cart-and-title">
           <h1>{user.username}'s Cart</h1>
-          <div id="cart" className="flex-box">
+          <div id="cart" className="cart-flex-box">
             {productsInCart.map((item, key) => {
               return (
-                <div key={key}>
-                  <h1>name: {item.product.name}</h1>
-                  <img src={item.product.imageUrl} />
+                <div className="cart-card"key={key}>
+                  <h6>name: {item.product.name}</h6>
+                  <img className="cart-img" src={item.product.imageUrl} />
                   <div>Quantity: {item.quantity}</div>
                   <button
                     type="button"
@@ -160,9 +161,10 @@ class Cart extends Component {
             })}
           </div>
           <h1>Total: ${total.toFixed(2)}</h1>
-          <button onClick={() => this.props.history.push("/payment")}>
+          <button className="checkout-button"onClick={() => this.props.history.push("/payment")}>
             Checkout
           </button>
+        </div>
         </>
       ) : (
         <ClipLoader

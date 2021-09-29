@@ -78,14 +78,16 @@ async function seed() {
   ];
 
   for (let i = 0; i < 100; ++i) {
-    let imageUrl = `${faker.image.nature()}?random=${Math.random()}`;
+    let imageUrl = `${faker.image.food()}?random=${Math.random()}`;
     let product = Product.create({
       name: faker.name.title(),
       price: faker.commerce.price(),
       description: faker.commerce.productDescription(),
       imageUrl,
     });
+    let user = User.create({username: faker.name.findName(), password: faker.name.jobTitle+faker.name.lastName, email: faker.internet.email()})
     _products.push(product);
+    users.push(user)
   }
 
   const products = await Promise.all(_products);

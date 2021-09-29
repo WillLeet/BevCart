@@ -55,13 +55,14 @@ class GuestCart extends Component {
 
     return (
       <>
+      <div id="cart-and-title">
         <h1>Guest Cart</h1>
-        <div id="cart" className="flex-box">
+        <div id="cart" className="cart-flex-box">
           {productsInCart.map((item, key) => {
             return (
-              <div key={key}>
+              <div className="cart-card" key={key}>
                 <h1>name: {item.name}</h1>
-                <img src={item.imageUrl} />
+                <img className="cart-img" src={item.imageUrl} />
                 <div>Quantity: {item.quantity}</div>
                 <button
                   type="button"
@@ -120,7 +121,8 @@ class GuestCart extends Component {
           })}
         </div>
         <h1>Total: ${total.toFixed(2)}</h1>
-        <button onClick={()=>this.props.history.push('/payment')}>Checkout</button>
+        <button className="checkout-button" onClick={()=>this.props.history.push('/payment')}>Checkout</button>
+      </div>
       </>
     );
   }

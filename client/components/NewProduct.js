@@ -30,7 +30,7 @@ class NewProduct extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <div>
+        <div id="new-product">
           <input
             type="text"
             name="name"

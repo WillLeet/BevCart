@@ -5,6 +5,7 @@ import {logout} from '../store'
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
+  <div id="fixed">
   <div id="navbar-div">
     <div className="nav-left">
     <Link id="nav-company-name" to="/home">BevCart</Link>
@@ -14,7 +15,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           color={'#1B9AAA'}
           size={15}
           loading={true}
-          speedMultiplier={0.3}
+          speedMultiplier={0.25}
         />
         </div>
     <nav className="nav-right">
@@ -40,6 +41,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
       </div>
     <Link to="/cart">🛒</Link>
     </nav>
+  </div>
   </div>
 )
 
