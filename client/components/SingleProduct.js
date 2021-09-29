@@ -93,13 +93,13 @@ export class SingleProduct extends React.Component {
           </div>
           <div id="single-product-details">
             <div id="single-product-title" className="text-single-product">
-              Name: {product.name}
+              {product.name}
             </div>
             <div
               id="single-product-description"
               className="text-single-product"
             >
-              Description:
+            
               {product.description}
             </div>
             <div id="single-product-price" className="text-single-product">
