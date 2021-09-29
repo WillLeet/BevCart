@@ -9,12 +9,14 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
     <div className="nav-left">
     <Link id="nav-company-name" to="/home">BevCart</Link>
     </div>
+    <div id="pacman">
     <PacmanLoader
           color={'#1B9AAA'}
           size={15}
           loading={true}
           speedMultiplier={0.3}
         />
+        </div>
     <nav className="nav-right">
     <div className = "nav-options">
       {isLoggedIn ? (isAdmin ? (

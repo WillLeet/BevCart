@@ -240,3 +240,18 @@ nav.nav-right {
 .text-single-product {
   font-family: "Gemunu Libre", sans-serif;
 }
+
+#pacman{
+  position:absolute;
+  top:0;
+  left:-50px;
+  animation-name: pacman-route;
+  animation-duration: 20s;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pacman-route {
+  from {left: -50px;}
+  to {left: 120%}
+}
